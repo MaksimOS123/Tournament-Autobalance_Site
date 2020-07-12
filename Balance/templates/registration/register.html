@@ -2,6 +2,8 @@
 
 {% block content %}
 <div class="container" style="width: 720px; position: relative; top: 50px;">
+
+
     <form method="POST">
         {% csrf_token %}
         <div class="form-row">
@@ -34,6 +36,20 @@
                 {{ form.password_conf }}
             </div>
         </div>
+        {% for error in errors %}
+            <span class="btn btn-danger mb-3 w-100">{{ error }}</span>
+        {% endfor %}
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <span class="btn btn-danger mb-3 w-100">{{ error|escape }}</span>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <span class="btn btn-danger mb-3 w-100">{{ error|escape }}</span>
+            {% endfor %}
+        {% endif %}
         <input type="submit" class="btn btn-primary" value="Sign Up"></input>
     </form>
 </div>
