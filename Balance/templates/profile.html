@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="width: 720px; position: relative; top: 50px;">
+    <ul class="list-group">
+        <li class="list-group-item text-center active" aria-disabled="true">{{ username }}</li>
+        <li class="list-group-item text-center">{{ first_name }}</li>
+        <li class="list-group-item text-center">{{ last_name }}</li>
+        <li class="list-group-item text-center">{{ email }}</li>
+    </ul>
+</div>
+{% endblock %}
