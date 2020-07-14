@@ -63,6 +63,47 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
+@login_required
+def profile_edit(request):
+    context = f_m.get_base_context(request)
+    context['title'] = 'Edit profile'
+    context['first_name'] = request.user.first_name
+    context['last_name'] = request.user.last_name
+    context['email'] = request.user.email
+    context['username'] = request.user
+
+    user = User.objects.filter(username=request.user)[0]
+    if request.method == 'POST':
+        if request.POST.get('username', False):
+            if user.username != request.POST.get('username'):
+                user.username = request.POST.get('username')
+                user.save()
+                context['success'] = 'The username change is successful'
+        if request.POST.get('email', False):
+            if user.email != request.POST.get('email'):
+                user.email = request.POST.get('email')
+                user.save()
+                context['success'] = 'The email change is successful'
+        if request.POST.get('first_name', False) and request.POST.get('last_name', False):
+            if user.first_name != request.POST.get('first_name') or user.last_name != request.POST.get('last_name'):
+                user.first_name, user.last_name = request.POST.get('first_name'), request.POST.get('last_name')
+                user.save()
+                context['success'] = 'The name change is successful'
+        if request.POST.get('old_pswd', False):
+            if user.check_password(request.POST.get('old_pswd')):
+                if request.POST.get('new_pswd') == request.POST.get('conf_pswd'):
+                    user.set_password(request.POST.get('new_pswd'))
+                    user.save()
+                    context['success'] = 'The password change is successful'
+                else:
+                    context['error'] = "New passwords don't match"
+            else:
+                context['error'] = 'The old password is invalid'
+
+    return render(request, 'profile_edit.html', context)
+
+
+
 def user_page(request, user_id):
     context = f_m.get_base_context(request)
     user = User.objects.get(id=user_id)
