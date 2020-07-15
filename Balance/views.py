@@ -134,11 +134,6 @@ def profile_edit(request):
         else:
             profile_form = UserPhoto(instance=this_user)
 
-        context['first_name'] = request.user.first_name
-        context['last_name'] = request.user.last_name
-        context['email'] = request.user.email
-        context['username'] = request.user
-
         return HttpResponseRedirect('/profile/')
 
     else:
