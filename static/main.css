@@ -49,7 +49,7 @@ body {
     top: 42px;
     width:132px;
     height: 132px;
-    border:2px dashed #4c4c4c;
+    border:2px dashed #9a9a9a;
     border-radius:50%;
     display:block;
     padding:1.2em;
@@ -67,12 +67,12 @@ body {
 }
 
 .example-1 .label i, .example-1 .label .title{
-    color:#4c4c4c;
+    color:#9a9a9a;
     transition:200ms color
 }
 
 .example-1 .label:hover{
-    border:2px solid #000
+    border:2px solid #fff
 }
 
-.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#fff}
