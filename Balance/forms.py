@@ -1,5 +1,8 @@
 from django import forms
 
+from Balance.models import UserProfile
+
+
 class SignInForm(forms.Form):
     user_name = forms.CharField(label="Login", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'username'}))
     user_first_name = forms.CharField(label="First name", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'first_name'}))
@@ -8,3 +11,8 @@ class SignInForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'psw'}), label="Пароль")
     password_conf = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'psw_c'}),
                                     label="Подтвердите пароль")
+class UserPhoto(forms.ModelForm):
+    photo = forms.ImageField(label='', required=False, error_messages={'invalid': "Image files only"}, widget=forms.FileInput)
+    class Meta:
+        model = UserProfile
+        fields = ('photo',)

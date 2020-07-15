@@ -1,3 +1,78 @@
 .navbar{
     box-shadow: 0 0 10px 3px;
 }
+
+body {
+    background-color: #edeef0 !important;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px 1px;
+}
+
+.photo {
+  width: 132px;
+  height: 132px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px;
+}
+
+.test {
+  width: auto;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.shadow {
+  box-shadow: 0 0 50px 5px;
+}
+
+.example-1 .form-group{
+    padding:1em;
+    margin:1em;
+}
+
+.example-1 input[type=file]{
+    outline:0;
+    opacity:0;
+    pointer-events:none;
+    user-select:none
+}
+
+.example-1 .label{
+    position: absolute;
+    top: 42px;
+    width:132px;
+    height: 132px;
+    border:2px dashed #4c4c4c;
+    border-radius:50%;
+    display:block;
+    padding:1.2em;
+    transition:border 300ms ease;
+    cursor:pointer;
+    text-align:center
+}
+
+.example-1 .label i{
+    position: relative;
+    display:block;
+    font-size:42px;
+    padding-bottom:16px;
+    top: 25px;
+}
+
+.example-1 .label i, .example-1 .label .title{
+    color:#4c4c4c;
+    transition:200ms color
+}
+
+.example-1 .label:hover{
+    border:2px solid #000
+}
+
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}

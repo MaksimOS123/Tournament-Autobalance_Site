@@ -1,3 +1,6 @@
+import os
+from os import getcwd
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -6,6 +9,8 @@ from django.shortcuts import render
 import Balance.functions as f_m
 from Balance.forms import SignInForm
 # Create your views here.
+from Balance.forms import UserPhoto
+from Balance.models import UserProfile
 
 
 def index_page(request):
@@ -60,6 +65,12 @@ def profile(request):
     context['last_name'] = request.user.last_name
     context['email'] = request.user.email
 
+    if not UserProfile.objects.filter(user=request.user).exists():
+        UserProfile(user=request.user).save()
+
+    if UserProfile.objects.get(user=request.user).photo:
+        context['photo'] = UserProfile.objects.get(user=request.user).photo
+
     return render(request, 'profile.html', context)
 
 
@@ -72,17 +83,27 @@ def profile_edit(request):
     context['email'] = request.user.email
     context['username'] = request.user
 
+    if not UserProfile.objects.filter(user=request.user).exists():
+        UserProfile(user=request.user).save()
+
+    if UserProfile.objects.get(user=request.user).photo:
+        context['photo'] = UserProfile.objects.get(user=request.user).photo
+
     user = User.objects.filter(username=request.user)[0]
+    this_user = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         if request.POST.get('username', False):
             if user.username != request.POST.get('username'):
-                user.username = request.POST.get('username')
-                user.save()
-                context['success'] = 'The username change is successful'
+                if not User.objects.filter(username=request.POST.get('username')).exists():
+                    user.username = request.POST.get('username')
+                    user.save()
+                    context['success'] = 'The login change is successful'
+                else:
+                    context['error'] = 'This login is already taken'
         if request.POST.get('email', False):
             if user.email != request.POST.get('email'):
-                user.email = request.POST.get('email')
                 user.save()
+                context['email'] = request.user.email
                 context['success'] = 'The email change is successful'
         if request.POST.get('first_name', False) and request.POST.get('last_name', False):
             if user.first_name != request.POST.get('first_name') or user.last_name != request.POST.get('last_name'):
@@ -100,6 +121,31 @@ def profile_edit(request):
             else:
                 context['error'] = 'The old password is invalid'
 
+        if request.FILES:
+            profile_form = UserPhoto(instance=this_user, data=request.POST, files=request.FILES)
+            if profile_form.is_valid():
+                if UserProfile.objects.get(user=request.user).photo:
+                    image1 = 'C:/test/HMM_Site/media/' + str(context['photo'])
+                    os.remove(image1)
+                profile_form.save()
+                context['photo'] = UserProfile.objects.get(user=request.user).photo
+            else:
+                profile_form = UserPhoto(instance=this_user)
+        else:
+            profile_form = UserPhoto(instance=this_user)
+
+        context['first_name'] = request.user.first_name
+        context['last_name'] = request.user.last_name
+        context['email'] = request.user.email
+        context['username'] = request.user
+
+        return HttpResponseRedirect('/profile/')
+
+    else:
+        profile_form = UserPhoto(instance=this_user)
+
+    context['profile_form'] = profile_form
+
     return render(request, 'profile_edit.html', context)
 
 
@@ -111,6 +157,10 @@ def user_page(request, user_id):
     context['first_name'] = user.first_name
     context['last_name'] = user.last_name
     context['email'] = user.email
+    if UserProfile.objects.filter(user=user).exists():
+        if UserProfile.objects.get(user=user).photo:
+            context['photo'] = UserProfile.objects.get(user=user).photo
+
     if request.user == user:
         return HttpResponseRedirect('/profile/')
 
