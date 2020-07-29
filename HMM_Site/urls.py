@@ -30,4 +30,7 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('profile/edit/', views.profile_edit, name="profile_edit"),
     path('user/<int:user_id>/', views.user_page, name="user_page"),
+    path('create_tournament/', views.create_tournament, name="create_tournament"),
+    path('tournament/<str:ref>/', views.tournament, name="tournament"),
+    path('tournaments/', views.my_tournaments, name="my_tournaments"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

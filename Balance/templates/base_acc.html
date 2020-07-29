@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Main CSS -->
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'main.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <title>{{ title }}</title>
+
+        <!-- Extended CSS -->
+        {% block extended_css %}{% endblock %}
+    </head>
+    <body>
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-2">
+                  <div class="left-column">
+                      <div class="photo">
+                          <img src="{{ photo.url }}">
+                      </div>
+                      <hr class="hr-invisible">
+                      <p class="text-center"><a class="btn btn-outline-light btn-block" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">{{ username }}</a></p>
+                      <div class="collapse" id="collapse">
+                          <div class="card card-body text-center">
+                              test
+                          </div>
+                      </div>
+                      <hr class="hr-line">
+                      <p class="text-center"><a class="btn btn-outline-light btn-block" href="{% url 'my_tournaments' %}" role="button" aria-expanded="false"><i class="fas fa-trophy"></i> My Tournaments</a></p>
+                      <hr class="hr-line">
+                      <p class="text-center"><a class="btn btn-outline-light btn-block" href="/" role="button" aria-expanded="false">Back to main page</a></p>
+                      <hr class="hr-line">
+                      <p class="text-center"><a class="btn btn-outline-light btn-block" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse">Language</a></p>
+                      <div class="collapse" id="collapse2">
+                          <div class="card card-body text-center">
+                              test
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-10">
+                    {% block content %}{% endblock %}
+              </div>
+          </div>
+        </div>
+    </body>
+
+    <!-- BASE JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/787a5a9f32.js" crossorigin="anonymous"></script>
+
+    <!-- Extended CSS -->
+    {% block extended_js %}{% endblock %}
+</html>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container" style="width: 720px; position: relative; top: 50px;">
+<div class="container" style="width: 720px; height: 320px; position: relative; top: 50px;">
 
 
     <form method="POST">
@@ -50,7 +50,9 @@
                 <span class="btn btn-danger mb-3 w-100">{{ error|escape }}</span>
             {% endfor %}
         {% endif %}
-        <input type="submit" class="btn btn-primary" value="Sign Up"></input>
+        <div class="form-group col-2 offset-md-10 text-right">
+            <input type="submit" class="btn btn-primary" value="Sign Up"></input>
+        </div>
     </form>
 </div>
 {% endblock %}
