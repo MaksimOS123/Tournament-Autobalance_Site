@@ -151,6 +151,9 @@ def create_tournament(request):
         f = TournamentForm()
         context['form'] = f
 
+    date = datetime.datetime.today()
+    context['date'] = date.strftime("%Y-%m-%d")
+
     return render(request, 'create_tournament.html', context)
 
 
