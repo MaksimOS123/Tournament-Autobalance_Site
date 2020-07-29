@@ -28,7 +28,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('reg/', views.sign_up, name="register"),
     path('profile/', views.profile, name="profile"),
-    path('profile/edit/', views.profile_edit, name="profile_edit"),
     path('user/<int:user_id>/', views.user_page, name="user_page"),
     path('create_tournament/', views.create_tournament, name="create_tournament"),
     path('tournament/<str:ref>/', views.tournament, name="tournament"),

@@ -157,34 +157,6 @@ def create_tournament(request):
 @login_required
 def profile(request):
     context = f_m.get_base_context(request)
-    context['username'] = request.user
-    context['first_name'] = request.user.first_name
-    context['last_name'] = request.user.last_name
-    context['email'] = request.user.email
-
-    #print(UserProfile.objects.get(user=request.user).tournaments.all())
-
-    '''
-    UserProfile.objects.get(user=request.user).tournaments.all()[0].title
-    
-    test = TournamentModel.objects.get(ref="just test")
-    print(test.userprofile_set.all()[0].user)
-    
-    for i in range(python.student_set.count()):
-        print(python.student_set.all()[i].user)'''
-
-    if not UserProfile.objects.filter(user=request.user).exists():
-        UserProfile(user=request.user).save()
-
-    if UserProfile.objects.get(user=request.user).photo:
-        context['photo'] = UserProfile.objects.get(user=request.user).photo
-
-    return render(request, 'profile.html', context)
-
-
-@login_required
-def profile_edit(request):
-    context = f_m.get_base_context(request)
     context['title'] = 'Edit profile'
     context['first_name'] = request.user.first_name
     context['last_name'] = request.user.last_name
@@ -247,7 +219,7 @@ def profile_edit(request):
 
     context['profile_form'] = profile_form
 
-    return render(request, 'profile_edit.html', context)
+    return render(request, 'profile.html', context)
 
 
 

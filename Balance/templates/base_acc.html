@@ -9,6 +9,8 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'main.css' %}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'profile.css' %}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <title>{{ title }}</title>
 
@@ -24,10 +26,13 @@
                           <img src="{{ photo.url }}">
                       </div>
                       <hr class="hr-invisible">
-                      <p class="text-center"><a class="btn btn-outline-light btn-block" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">{{ username }}</a></p>
-                      <div class="collapse" id="collapse">
-                          <div class="card card-body text-center">
-                              test
+                      <div class="dropdown">
+                          <a class="btn btn-outline-light btn-block dropdown-toggle fix" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             {{ username }}
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                              <a class="dropdown-item" type="button" href="{% url 'profile' %}">My account</a>
+                              <a class="dropdown-item" type="button" href="{% url 'logout' %}">Logout</a>
                           </div>
                       </div>
                       <hr class="hr-line">
@@ -35,7 +40,7 @@
                       <hr class="hr-line">
                       <p class="text-center"><a class="btn btn-outline-light btn-block" href="/" role="button" aria-expanded="false">Back to main page</a></p>
                       <hr class="hr-line">
-                      <p class="text-center"><a class="btn btn-outline-light btn-block" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse">Language</a></p>
+                      <p class="text-center"><a class="btn btn-outline-light btn-block disabled" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse" aria-disabled="true">Language</a></p>
                       <div class="collapse" id="collapse2">
                           <div class="card card-body text-center">
                               test

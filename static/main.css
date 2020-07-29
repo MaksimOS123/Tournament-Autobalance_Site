@@ -39,10 +39,10 @@ body {
 
 .example-1 .label{
     position: absolute;
-    top: 42px;
+    top: 32px;
     width:132px;
     height: 132px;
-    border:2px dashed #9a9a9a;
+    border:2px dashed #6d6d6d;
     border-radius:50%;
     display:block;
     padding:1.2em;
@@ -60,12 +60,12 @@ body {
 }
 
 .example-1 .label i, .example-1 .label .title{
-    color:#9a9a9a;
+    color:#6d6d6d;
     transition:200ms color
 }
 
 .example-1 .label:hover{
-    border:2px solid #fff
+    border:2px solid #000
 }
 
-.example-1 .label:hover i,.example-1 .label:hover .title{color:#fff}
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}
