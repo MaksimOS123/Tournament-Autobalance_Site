@@ -227,6 +227,7 @@ def profile_pass(request):
         context['photo'] = UserProfile.objects.get(user=request.user).photo
 
     user = User.objects.filter(username=request.user)[0]
+
     if request.POST.get('old_pswd', False):
         if user.check_password(request.POST.get('old_pswd')):
             if request.POST.get('new_pswd') == request.POST.get('conf_pswd'):

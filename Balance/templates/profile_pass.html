@@ -34,7 +34,7 @@
                             {% endif %}
                         </div>
                         <div class="col-12">
-                            <form method="POST" action="{% url 'profile' %}">
+                            <form method="POST" action="{% url 'profile_pass' %}">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <label for="old_pswd">Old password</label>
