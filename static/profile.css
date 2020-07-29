@@ -26,14 +26,16 @@ body {
 .col-lg-2 {
   position: relative;
   left: -15px;
-  background-color: #262626;
 }
 
 .left-column{
+  background-color: #262626;
   height: 100%;
-  position: relative;
-  left: 7.5px;
-  top: 30px;
+  position: fixed;
+  padding-top: 30px;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+  width: 15%;
 }
 
 .content {

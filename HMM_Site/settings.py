@@ -25,7 +25,7 @@ SECRET_KEY = '09lcux8*^!vym-t&*^oy(d4_q^5fh^kgehhryry%ltxfj5)$&o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tournamentshemema.pythonanywhere.com']
 
 
 # Application definition
