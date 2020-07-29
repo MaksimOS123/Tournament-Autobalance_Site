@@ -172,7 +172,6 @@ def profile(request):
     user = User.objects.filter(username=request.user)[0]
     this_user = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
-        print(request.GET.get('ref'))
         if request.POST.get('username', False):
             if user.username != request.POST.get('username'):
                 if not User.objects.filter(username=request.POST.get('username')).exists():
@@ -191,16 +190,6 @@ def profile(request):
                 user.first_name, user.last_name = request.POST.get('first_name'), request.POST.get('last_name')
                 user.save()
                 context['success'] = 'The name change is successful'
-        if request.POST.get('old_pswd', False):
-            if user.check_password(request.POST.get('old_pswd')):
-                if request.POST.get('new_pswd') == request.POST.get('conf_pswd'):
-                    user.set_password(request.POST.get('new_pswd'))
-                    user.save()
-                    context['success'] = 'The password change is successful'
-                else:
-                    context['error'] = "New passwords don't match"
-            else:
-                context['error'] = 'The old password is invalid'
 
         if request.FILES:
             profile_form = UserPhoto(instance=this_user, data=request.POST, files=request.FILES)
@@ -221,6 +210,35 @@ def profile(request):
 
     return render(request, 'profile.html', context)
 
+
+@login_required()
+def profile_pass(request):
+    context = f_m.get_base_context(request)
+    context['title'] = 'Edit profile'
+    context['first_name'] = request.user.first_name
+    context['last_name'] = request.user.last_name
+    context['email'] = request.user.email
+    context['username'] = request.user
+
+    if not UserProfile.objects.filter(user=request.user).exists():
+        UserProfile(user=request.user).save()
+
+    if UserProfile.objects.get(user=request.user).photo:
+        context['photo'] = UserProfile.objects.get(user=request.user).photo
+
+    user = User.objects.filter(username=request.user)[0]
+    if request.POST.get('old_pswd', False):
+        if user.check_password(request.POST.get('old_pswd')):
+            if request.POST.get('new_pswd') == request.POST.get('conf_pswd'):
+                user.set_password(request.POST.get('new_pswd'))
+                user.save()
+                context['success'] = 'The password change is successful'
+            else:
+                context['error'] = "New passwords don't match"
+        else:
+            context['error'] = 'The old password is invalid'
+
+    return render(request, 'profile_pass.html', context)
 
 
 def user_page(request, user_id):
