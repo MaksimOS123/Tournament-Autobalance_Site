@@ -15,6 +15,7 @@ from Balance.forms import TournamentForm
 from Balance.forms import UserPhoto
 from Balance.models import UserProfile
 from Balance.models import TournamentModel
+from pathlib import Path
 
 
 def index_page(request):
@@ -118,7 +119,6 @@ def create_tournament(request):
 
     if request.method == 'POST':
         f = TournamentForm(request.POST)
-        print(f)
 
         if f.is_valid():
             c = request.user
@@ -195,7 +195,7 @@ def profile(request):
             profile_form = UserPhoto(instance=this_user, data=request.POST, files=request.FILES)
             if profile_form.is_valid():
                 if UserProfile.objects.get(user=request.user).photo:
-                    image1 = 'C:/test/HMM_Site/media/' + str(context['photo'])
+                    image1 = str(Path.cwd()) + '/media/' + str(context['photo'])
                     os.remove(image1)
                 profile_form.save()
                 context['photo'] = UserProfile.objects.get(user=request.user).photo
