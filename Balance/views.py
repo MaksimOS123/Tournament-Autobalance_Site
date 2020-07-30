@@ -37,7 +37,8 @@ def tournament(request, ref):
     context['time'] = tr.time
     context['schedule'] = tr.schedule
     context['contacts'] = tr.contacts
-    context['end_registration'] = tr.end_registration
+    context['end_date'] = tr.end_date
+    context['end_tine'] = tr.end_time
     context['members_count'] = tr.members_count
     context['type'] = tr.type
     context['fortype'] = tr.formattype
@@ -133,13 +134,14 @@ def create_tournament(request):
             tm = f.data['time']
             sc = f.data['schedule']
             cn = f.data['contacts']
-            ern = request.POST.get('end_registration')
+            ed = request.POST.get('end_date')
+            et = request.POST.get('end_time')
             tp = request.POST.get('inputType')
             frm = request.POST.get('inputFormat')
 
             tournament = TournamentModel.objects.create(creator=c, ref=ref, title=t, description=d,
                                                         rules=r, full_rules=fr, prizes=p, date=dt,
-                                                        time=tm, schedule=sc, contacts=cn, end_registration=ern, type=tp, formattype=frm)
+                                                        time=tm, schedule=sc, contacts=cn, end_date=ed, end_time=et,type=tp, formattype=frm)
             tournament.save()
             tournament.userprofile_set.add(UserProfile.objects.get(user=request.user))
 

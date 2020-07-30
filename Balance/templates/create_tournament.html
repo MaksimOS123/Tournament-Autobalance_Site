@@ -143,8 +143,15 @@
                   </select>
               </div>
               <div class="form-group col-md-4">
-                  <label for="datetime">End registration date and time</label>
-                  <input type="datetime-local" class="form-control" id="datetime" name="end_registration" min="{{ date }}T00:00" max="2030-12-31T23:59">
+                  <label for="end_date">End registration date and time</label>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <input type="date" class="form-control" id="end_date" name="end_date" min="{{ date }}" max="2030-12-31">
+                      </div>
+                      <div class="col-md-6">
+                          <input type="time" class="form-control" id="end_time" name="end_time">
+                      </div>
+                  </div>
               </div>
               <div class="form-group col-2 offset-md-10 text-right">
                   <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Create</button>

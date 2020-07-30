@@ -17,7 +17,8 @@ class TournamentModel(models.Model):
     time = models.TimeField()
     schedule = models.TextField(default='')
     contacts = models.TextField(default='')
-    end_registration = models.DateTimeField()
+    end_date = models.DateField()
+    end_time = models.TimeField()
     public = models.BooleanField(default=False)
 
     members_count = models.CharField(max_length=500, default='0')
