@@ -15,14 +15,14 @@ class SignInForm(forms.Form):
 
 class TournamentForm(forms.Form):
     title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'title'}))
-    description = forms.CharField(label="Description", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'description'}))
-    rules = forms.CharField(label="Fast Rules", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'Rules'}))
-    full_rules = forms.CharField(label="Full Rules", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'full_rules'}))
-    prizes = forms.CharField(label="Prizes", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'prizes'}))
+    description = forms.CharField(label="Description", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'description'}), required=False)
+    rules = forms.CharField(label="Fast Rules", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'Rules'}), required=False)
+    full_rules = forms.CharField(label="Full Rules", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'full_rules'}), required=False)
+    prizes = forms.CharField(label="Prizes", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'prizes'}), required=False)
     date = forms.DateField(label="Date", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'date'}))
     time = forms.TimeField(label="Time", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'time'}))
-    schedule = forms.CharField(label="Schedule", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'schedule'}))
-    contacts = forms.CharField(label="Contacts", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'contacts'}))
+    schedule = forms.CharField(label="Schedule", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'schedule'}), required=False)
+    contacts = forms.CharField(label="Contacts", widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'contacts'}), required=False)
 
 
 class UserPhoto(forms.ModelForm):

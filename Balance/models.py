@@ -43,6 +43,7 @@ class TournamentModel(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    dark_mode = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='images/', blank=True, default='no_photo.jpg')
     tournaments = models.ManyToManyField(TournamentModel)
 

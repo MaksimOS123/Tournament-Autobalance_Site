@@ -1,0 +1,82 @@
+.navbar{
+    box-shadow: 0 0 10px 3px;
+}
+
+body {
+    background-color: #151515 !important;
+}
+
+.container {
+  background-color: #262626;
+  color: #ffffffd9;
+  border-radius: 10px !important;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.container a{
+  color: #ffffffb3;
+}
+
+.container a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.container-fluid{
+  position: relative;
+  height: 100%;
+}
+
+.row {
+  height: 100%;
+}
+
+.shadow {
+  box-shadow: 0px 0.2rem 0.3rem rgba(0, 0, 0, 0.1);
+}
+
+.example-1 .form-group{
+    padding:1em;
+    margin:1em;
+}
+
+.example-1 input[type=file]{
+    outline:0;
+    opacity:0;
+    pointer-events:none;
+    user-select:none
+}
+
+.example-1 .label{
+    position: absolute;
+    top: 32px;
+    width:132px;
+    height: 132px;
+    border:2px dashed #6d6d6d;
+    border-radius:50%;
+    display:block;
+    padding:1.2em;
+    transition:border 300ms ease;
+    cursor:pointer;
+    text-align:center
+}
+
+.example-1 .label i{
+    position: relative;
+    display:block;
+    font-size:42px;
+    padding-bottom:16px;
+    top: 25px;
+}
+
+.example-1 .label i, .example-1 .label .title{
+    color:#6d6d6d;
+    transition:200ms color
+}
+
+.example-1 .label:hover{
+    border:2px solid #000
+}
+
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}

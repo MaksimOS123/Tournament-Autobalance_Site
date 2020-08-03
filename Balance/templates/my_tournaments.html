@@ -23,16 +23,16 @@
             <div class="col-4">
                 <div class="create trans" onClick="window.location={% url 'create_tournament' %}">
                       <i class="fas fa-plus"></i>
-                      <p style="color: #808080; font-size: 20px; line-height: 0px;">Create new tournament</p>
+                      <p style="font-size: 20px; line-height: 0px;">Create new tournament</p>
                   </div>
             </div>
             {% for item in tournaments %}
             <div class="col-4">
                 <div class="create trans" onClick="window.location='/tournament/{{ item.ref }}'">
                     {% load static %}
-                    <img src="{% static 'background.jpg' %}">
+                    <img src="{% static mode_img %}">
                     <div class="gradient">
-                        <p style="color: #000; font-size: 30px; line-height: 0px; position: relative; top: -10px;">{{ item.title }}</p>
+                        <p style="font-size: 30px; line-height: 0px; position: relative; top: -10px;">{{ item.title }}</p>
                     </div>
                     {% if item.public %}
                         <hr>

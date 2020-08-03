@@ -20,6 +20,10 @@ from pathlib import Path
 
 def index_page(request):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     context['title'] = "Main page"
 
     return render(request, 'index.html', context)
@@ -27,6 +31,10 @@ def index_page(request):
 
 def tournament(request, ref):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     tr = TournamentModel.objects.get(ref=ref)
     context['title'] = tr.title
     context['description'] = tr.description
@@ -53,6 +61,10 @@ def tournament(request, ref):
 
 def sign_up(request):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     context['title'] = 'Регистрация'
     context['errors'] = []
 
@@ -91,14 +103,11 @@ def sign_up(request):
 @login_required()
 def my_tournaments(request):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     context['title'] = 'My Tournaments'
-    context['username'] = request.user
-
-    if not UserProfile.objects.filter(user=request.user).exists():
-        UserProfile(user=request.user).save()
-
-    if UserProfile.objects.get(user=request.user).photo:
-        context['photo'] = UserProfile.objects.get(user=request.user).photo
 
     context['tournaments'] = UserProfile.objects.get(user=request.user).tournaments.all()
 
@@ -108,15 +117,12 @@ def my_tournaments(request):
 @login_required()
 def create_tournament(request):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     context['title'] = 'Create Tournament'
     context['errors'] = []
-    context['username'] = request.user
-
-    if not UserProfile.objects.filter(user=request.user).exists():
-        UserProfile(user=request.user).save()
-
-    if UserProfile.objects.get(user=request.user).photo:
-        context['photo'] = UserProfile.objects.get(user=request.user).photo
 
     if request.method == 'POST':
         f = TournamentForm(request.POST)
@@ -162,17 +168,11 @@ def create_tournament(request):
 @login_required
 def profile(request):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     context['title'] = 'Edit profile'
-    context['first_name'] = request.user.first_name
-    context['last_name'] = request.user.last_name
-    context['email'] = request.user.email
-    context['username'] = request.user
-
-    if not UserProfile.objects.filter(user=request.user).exists():
-        UserProfile(user=request.user).save()
-
-    if UserProfile.objects.get(user=request.user).photo:
-        context['photo'] = UserProfile.objects.get(user=request.user).photo
 
     user = User.objects.filter(username=request.user)[0]
     this_user = UserProfile.objects.get(user=request.user)
@@ -199,7 +199,7 @@ def profile(request):
         if request.FILES:
             profile_form = UserPhoto(instance=this_user, data=request.POST, files=request.FILES)
             if profile_form.is_valid():
-                if UserProfile.objects.get(user=request.user).photo:
+                if UserProfile.objects.get(user=request.user).photo != 'no_photo.jpg':
                     image1 = str(Path.cwd()) + '/media/' + str(context['photo'])
                     os.remove(image1)
                 profile_form.save()
@@ -219,17 +219,11 @@ def profile(request):
 @login_required()
 def profile_pass(request):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     context['title'] = 'Edit profile'
-    context['first_name'] = request.user.first_name
-    context['last_name'] = request.user.last_name
-    context['email'] = request.user.email
-    context['username'] = request.user
-
-    if not UserProfile.objects.filter(user=request.user).exists():
-        UserProfile(user=request.user).save()
-
-    if UserProfile.objects.get(user=request.user).photo:
-        context['photo'] = UserProfile.objects.get(user=request.user).photo
 
     user = User.objects.filter(username=request.user)[0]
 
@@ -249,6 +243,10 @@ def profile_pass(request):
 
 def user_page(request, user_id):
     context = f_m.get_base_context(request)
+    context, Edited = f_m.check_dark(request, context)
+    if Edited:
+        return HttpResponseRedirect(request.path)
+
     user = User.objects.get(id=user_id)
     context['username'] = user
     context['first_name'] = user.first_name
