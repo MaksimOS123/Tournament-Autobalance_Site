@@ -1,9 +1,111 @@
-.navbar{
-    box-shadow: 0 0 10px 3px;
+.shap {
+  box-shadow: 0 0 10px 10px #00000061;
+  background-color: #262626;
+}
+
+.content {
+  margin-top: 25px;
+}
+
+.image_tournament {
+  position: relative;
+  height: 400px;
+  width: auto;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.info {
+  background-color: #4040408a;
+  height: 150px;
+  width: 230px;
+  border-radius: 10px;
+}
+
+.info hr {
+  width: 100%;
+  padding: 0;
+  height: 0;
+  border: none;
+  border-top: 0.01rem solid #adadadcf;
+}
+
+.members {
+  position: relative;
+  height: 50%;
+  top: 35px;
+}
+
+.join {
+  position: relative;
+  bottom: 5px;
+  width: 100%;
+}
+
+.join button {
+  width: 90%;
+}
+
+@media (min-width: 1701px) {
+  .image_tournament img{
+    position: absolute;
+    opacity: 0.7;
+    width: 100%;
+    height: auto;
+    top: -500px;
+  }
+}
+
+@media (min-width: 1431px) and (max-width: 1700px) {
+  .image_tournament img{
+    position: absolute;
+    opacity: 0.7;
+    width: 100%;
+    height: auto;
+    top: -400px;
+  }
+}
+
+@media (min-width: 1245px) and (max-width: 1430px) {
+  .image_tournament img{
+    position: absolute;
+    opacity: 0.7;
+    width: 100%;
+    height: auto;
+    top: -300px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1244px) {
+  .image_tournament img{
+    position: absolute;
+    opacity: 0.7;
+    width: 100%;
+    height: auto;
+    top: -150px;
+  }
+}
+
+.tournament_links {
+  background-color: #101010;
+  font-size: 20px;
+}
+
+.tournament_links .active a{
+  color: #e2e2e2 !important;
+}
+
+.tournament_links a {
+  color: rgba(218, 218, 218, 0.5) !important;
+}
+
+.tournament_links a:hover {
+  color: #e2e2e2 !important;
 }
 
 body {
-    background-color: #151515 !important;
+    background-color: #333333fa !important;
+    color: #fff !important;
 }
 
 .container {
@@ -57,9 +159,13 @@ body {
     border-radius:50%;
     display:block;
     padding:1.2em;
-    transition:border 300ms ease;
+    transition:all 300ms ease;
     cursor:pointer;
     text-align:center
+}
+
+.example-1 .label:hover {
+  background-color: #000000b8;
 }
 
 .example-1 .label i{
@@ -76,7 +182,7 @@ body {
 }
 
 .example-1 .label:hover{
-    border:2px solid #000
+    border:2px solid #fff
 }
 
-.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#fff}

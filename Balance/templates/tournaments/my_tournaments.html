@@ -8,10 +8,10 @@
           <ul class="navbar-nav mr-auto"></ul>
           <ul class="navbar-nav justify-content-end">
               <li class="nav-item">
-                  <a href="{% url 'create_tournament' %}" class="btn btn-success" style="width: 130px; font-size: 18px;"><i class="fas fa-plus"></i> Create</a>
+                  <a href="{% url 'create_tournament' %}" class="btn btn-success sea" style="width: 130px; font-size: 18px;"><i class="fas fa-plus"></i> Create</a>
               </li>
               <li class="nav-item">
-                  <a href="#" class="btn btn-primary" style="width: 130px; font-size: 18px;"><i class="fas fa-archive"></i> Archives</a>
+                  <a href="{% url 'archives' %}" class="btn btn-primary purple" style="width: 130px; font-size: 18px;"><i class="fas fa-archive"></i> Archives</a>
               </li>
           </ul>
       </div>
@@ -24,11 +24,11 @@
                 <div class="create trans" onClick="window.location={% url 'create_tournament' %}">
                       <i class="fas fa-plus"></i>
                       <p style="font-size: 20px; line-height: 0px;">Create new tournament</p>
-                  </div>
+                </div>
             </div>
             {% for item in tournaments %}
             <div class="col-4">
-                <div class="create trans" onClick="window.location='/tournament/{{ item.ref }}'">
+                <div class="create trans" onClick="window.location='{% url 'console_tournament' item.ref %}'">
                     {% load static %}
                     <img src="{% static mode_img %}">
                     <div class="gradient">
@@ -44,6 +44,14 @@
                 </div>
             </div>
             {% endfor %}
+            {% if archives %}
+            <div class="col-4">
+                <div class="create trans gray" onClick="window.location={% url 'archives' %}">
+                      <i class="fas fa-archive"></i>
+                      <p style="font-size: 20px; line-height: 0px;">{{ archives_count }}</p>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

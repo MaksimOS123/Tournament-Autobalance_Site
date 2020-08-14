@@ -1,0 +1,70 @@
+.console {
+	margin-top: 30px;
+	width: 350px;
+	height: 250px;
+	background-color: #262626;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0px 0.2rem 0.3rem rgba(0, 0, 0, 0.48);
+    padding: 20px;
+}
+
+.console_links {
+	margin-top: 30px;
+	width: 350px;
+	height: 250px;
+	background-color: #262626;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0px 0.2rem 0.3rem rgba(0, 0, 0, 0.48);
+    padding: 20px;
+}
+
+.links {
+	margin-top: 25px;
+	font-size: 50px;
+}
+
+.console_header{
+	color: #ffffffcc;
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.console_desc {
+	margin-top: 50px;
+	color: #b9b9b9;
+	font-size: 17px;
+}
+
+.console:hover {
+ box-shadow: 1px 1px #00ffff, 2px 2px #00ffff, 3px 3px #00ffff, 4px 4px #00ffff, 5px 5px #00ffff, 6px 6px #00ffff, 7px 7px #00ffff;
+  -webkit-transform: translateX(-7px);
+  -moz-transform: translateX(-7px);
+  -o-transform: translateX(-7px);
+  transform: translateX(-7px);
+}
+
+.pd{
+	font-size: 20px;
+	color: #00ffff !important;
+}
+
+.pd:hover{
+	color: #009898 !important;
+	text-decoration: none;
+}
+
+.ad {
+	font-size: 20px;
+	color: #ff008d !important;
+}
+
+.ad:hover {
+	color: #b70065 !important;
+	text-decoration: none;
+}

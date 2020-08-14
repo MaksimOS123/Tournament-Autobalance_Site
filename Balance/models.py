@@ -1,7 +1,13 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
 # Create your models here.
+
+class Streamers(models.Model):
+    platform = models.TextField(default='')
+    language = models.TextField(default='')
+    link = models.URLField(default='')
 
 
 class TournamentModel(models.Model):
@@ -19,7 +25,16 @@ class TournamentModel(models.Model):
     contacts = models.TextField(default='')
     end_date = models.DateField()
     end_time = models.TimeField()
+
     public = models.BooleanField(default=False)
+    archive = models.BooleanField(default=False)
+
+    official_streamer_twitch = models.URLField(default='')
+    official_streamer_youtube = models.URLField(default='')
+    partners_streamers_twitch = models.ForeignKey(Streamers, on_delete=models.CASCADE, default=1)
+    partners_streamers_youtube = models.TextField(default='')
+
+    discord_server = models.URLField(default='')
 
     members_count = models.CharField(max_length=500, default='0')
 
@@ -43,15 +58,15 @@ class TournamentModel(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    twitch = models.URLField(default='')
+    steam = models.URLField(default='')
+    youtube = models.URLField(default='')
+    discord = models.TextField(default='')
+    discord_server = models.URLField(default='')
+    discord_server_tournament = models.URLField(default='')
     dark_mode = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='images/', blank=True, default='no_photo.jpg')
     tournaments = models.ManyToManyField(TournamentModel)
-
-
-class CheckedTournament(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, default="")
-    tournament_id = models.ForeignKey(to=TournamentModel, on_delete=models.CASCADE, default="")
-
 
 
 '''class Course(models.Model):

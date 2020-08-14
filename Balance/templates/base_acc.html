@@ -9,6 +9,8 @@
         {% load static %}
         <link rel="stylesheet" href="{% static mode_main %}">
         <link rel="stylesheet" href="{% static mode_profile %}">
+        <link rel="stylesheet" href="{% static 'colors.css' %}">
+        <link rel="stylesheet" href="{% static 'colors_buttons.css' %}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -39,16 +41,18 @@
                       <p class="text-center"><a class="btn btn-outline-light btn-block" href="{% url 'my_tournaments' %}" role="button" aria-expanded="false"><i class="fas fa-trophy"></i> My Tournaments</a></p>
                       <p class="text-center"><a class="btn btn-outline-light btn-block" href="/" role="button" aria-expanded="false">Back to main page</a></p>
                       <hr class="hr-line">
-                      <form method="POST" id="darks">
-                          {% csrf_token %}
-                          <input type="hidden" name="dark" value="dark">
-                          <div class="row">
-                              <div class="col-md-12 text-center">
-                                  <button class="btn btn-link fonts"><i class="fas fa-globe-europe"></i></button>
-                                  <button type="submit" class="btn btn-link fonts"><i class="fas fa-moon"></i></button>
-                              </div>
+                      <div class="row">
+                          <div class="col-md-6 text-right">
+                              <button class="btn btn-link fonts"><i class="fas fa-globe-europe"></i></button>
                           </div>
-                      </form>
+                          <div class="col-md-6 text-left">
+                              <form method="POST" id="darks">
+                                  {% csrf_token %}
+                                  <input type="hidden" name="dark" value="dark">
+                                  <button type="submit" class="btn btn-link fonts"><i class="fas fa-moon"></i></button>
+                              </form>
+                          </div>
+                      </div>
                   </div>
               </div>
               <div class="col-lg-10">

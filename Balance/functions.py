@@ -19,25 +19,26 @@ def get_base_context(request):
         if UserProfile.objects.get(user=request.user).dark_mode:
             context['mode_main'] = 'dark_main.css'
             context['mode_profile'] = 'dark_profile.css'
+            context['mode_console'] = 'dark_console.css'
             context['mode_img'] = 'dark.jpg'
         else:
             context['mode_main'] = 'main.css'
             context['mode_profile'] = 'profile.css'
+            context['mode_console'] = 'console.css'
             context['mode_img'] = 'light.jpg'
 
     return context
 
 
-def check_dark(request, context):
-    Edited = False
+def check_dark(request):
     if request.method == 'POST':
         if request.POST.get('dark'):
             user_mode = UserProfile.objects.get(user=request.user)
             user_mode.dark_mode = not user_mode.dark_mode
             user_mode.save()
-            Edited = True
+            return True
 
-    return context, Edited
+    return False
 
 
 def is_existing_user(users_list, username):

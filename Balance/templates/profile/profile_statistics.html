@@ -34,21 +34,25 @@
                             {% endif %}
                         </div>
                         <div class="col-12">
-                            <form method="POST" action="{% url 'profile_pass' %}">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <label for="old_pswd">Old password</label>
-                                    <input type="password" class="form-control" id="old_pswd" required name="old_pswd">
+                            <form method="POST" action="{% url 'profile_security' %}">
+                                <div class="form-row">
+                                    {% csrf_token %}
+                                    <div class="form-group col-md-12">
+                                        <label for="old_pswd">Old password</label>
+                                        <input type="password" class="form-control" id="old_pswd" required name="old_pswd">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="new_pswd">New password</label>
+                                        <input type="password" class="form-control" id="new_pswd" required name="new_pswd">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="confirm_pswd">Confirm password</label>
+                                        <input type="password" class="form-control" id="confirm_pswd" required name="conf_pswd">
+                                    </div>
+                                    <div class="form-group col-md-2 offset-md-10 text-right">
+                                        <input type="submit" class="btn btn-primary blue" value="Update"></input>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="new_pswd">New password</label>
-                                    <input type="password" class="form-control" id="new_pswd" required name="new_pswd">
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirm_pswd">Confirm password</label>
-                                    <input type="password" class="form-control" id="confirm_pswd" required name="conf_pswd">
-                                </div>
-                                <input type="submit" class="btn btn-primary" value="Update password">
                             </form>
                         </div>
                     </div>
@@ -66,7 +70,21 @@
                 </div>
                 <div class="card-header" id="headingTwo">
                     <h5 class="mb-0">
-                        <a class="btn btn-link disabled" type="button" href="{% url 'profile_pass' %}" aria-disabled="true" style="width: 100%">
+                        <a class="btn btn-link disabled" type="button" href="{% url 'profile_statistics' %}" aria-disabled="true" style="width: 100%">
+                            Statistics
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_integrations' %}" style="width: 100%">
+                            Integrations
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_security' %}" style="width: 100%">
                             Security
                         </a>
                     </h5>

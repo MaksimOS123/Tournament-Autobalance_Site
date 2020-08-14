@@ -1,0 +1,104 @@
+{% extends 'base_acc.html' %}
+
+{% block content %}
+<div class="header">
+  <nav class="navbar navbar-expand-lg">
+      <h2 style="font-weight: 700;"><i class="fas fa-user-circle"></i> Account</h2>
+  </nav>
+</div>
+<div class="content" style="padding-right: 50px;">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="container" style="position: relative; padding: 0px;">
+                <div class="container-header" style="width: 100%; position: relative; border-radius: 10px 10px 0 0;">
+                    Edit your profile
+                </div>
+                <div class="container-content shadow" style="border-radius: 0 0 10px 10px; height: 350px;">
+                    <div class="row">
+                        <div class="col-12">
+                            {% if success %}
+                            <div class="alert alert-success">
+                                {{ success }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            {% endif %}
+                            {% if error %}
+                            <div class="alert alert-danger">
+                                {{ error }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12">
+                            <form method="POST" action="{% url 'profile_integrations' %}">
+                                <div class="form-row">
+                                    {% csrf_token %}
+                                    <div class="form-group col-md-6">
+                                        <label for="twitch" style="font-size: 20px;"><i class="fab fa-twitch twitch"></i> Your twitch link</label>
+                                        <input type="url" class="form-control" id="twitch" name="twitch" value="{{ twitch }}"></input>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="youtube" style="font-size: 20px;"><i class="fab fa-youtube youtube"></i> Your youtube link</label>
+                                        <input type="url" class="form-control" id="youtube" name="youtube" value="{{ youtube }}"></input>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="discord" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Your discord tag</label>
+                                        <input type="text" class="form-control" id="discord" name="discord" value="{{ discord }}"></input>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="discord_server" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Your discord server</label>
+                                        <input type="url" class="form-control" id="discord_server" name="discord_server" value="{{ discord_server }}"></input>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="discord_server_tournament" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Your tournament discord server</label>
+                                        <input type="url" class="form-control" id="discord_server_tournament" name="discord_server_tournament" value="{{ discord_server_tournament }}"></input>
+                                    </div>
+                                    <div class="form-group col-md-2 offset-md-10 text-right">
+                                        <input type="submit" class="btn btn-primary blue" value="Update"></input>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="container shadow" style="padding: 0px;">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" type="button" href="{% url 'profile' %}" style="width: 100%">
+                            General
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_statistics' %}" style="width: 100%">
+                            Statistics
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link disabled" type="button" href="{% url 'profile_integrations' %}" aria-disabled="true" style="width: 100%">
+                            Integrations
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_security' %}" style="width: 100%">
+                            Security
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

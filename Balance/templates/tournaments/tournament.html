@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="image_tournament">
+    {% load static %}
+    <img src="{% static mode_img %}">
+    <div class="row align-items-center">
+        <div class="col-md-3 offset-md-2">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="col-md-2 offset-md-3 text-center">
+            <div class="info">
+                <div class="members">
+                    <h6>Free agents: {{ members_count }}</h6>
+                </div>
+                <hr>
+                <div class="join">
+                    <button type="submit" class="btn btn-success purple">Join</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light tournament_links">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav offset-md-2">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Information <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Participants</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Brackets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Media</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Announcements</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="content">
+    <div class="row">
+        <div class="col-md-4 offset-md-2">
+            test
+        </div>
+        <div class="col-md-4">
+            test2
+        </div>
+    </div>
+</div>
+
+<p>{{ title }}</p>
+<p>{{ description }}</p>
+<p>{{ rules }}</p>
+<p>{{ full_rules }}</p>
+<p>{{ prizes }}</p>
+<p>{{ date }}</p>
+<p>{{ time }}</p>
+<p>{{ schedule }}</p>
+<p>{{ contacts }}</p>
+<p>{{ end_registration }}</p>
+<p>{{ members_count }}</p>
+<p>{{ type }}</p>
+<p>{{ fortype }}</p>
+<p>{{ players }}</p>
+
+{% endblock %}

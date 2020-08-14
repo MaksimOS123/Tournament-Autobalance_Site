@@ -34,7 +34,7 @@
                             {% endif %}
                         </div>
                         <div class="col-12">
-                            <form method="POST" enctype="multipart/form-data">
+                            <form method="POST" enctype="multipart/form-data" name="profile">
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="example-1">
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-md-10 text-right">
-                                        <input type="submit" class="btn btn-primary" value="Update"></input>
+                                        <input type="submit" class="btn btn-primary blue" value="Update"></input>
                                     </div>
                                 </div>
                             </form>
@@ -93,7 +93,21 @@
                 </div>
                 <div class="card-header" id="headingTwo">
                     <h5 class="mb-0">
-                        <a class="btn btn-link" type="button" href="{% url 'profile_pass' %}" style="width: 100%">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_statistics' %}" style="width: 100%">
+                            Statistics
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_integrations' %}" style="width: 100%">
+                            Integrations
+                        </a>
+                    </h5>
+                </div>
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_security' %}" style="width: 100%">
                             Security
                         </a>
                     </h5>
