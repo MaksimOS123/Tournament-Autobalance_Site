@@ -51,5 +51,6 @@ urlpatterns = [
     path('console/<str:ref>/participant/', views.console_participant, name="console_participant"),
     path('console/<str:ref>/fields/', views.console_fields, name="console_fields"),
     path('console/<str:ref>/streams/', views.console_streams, name="console_streams"),
+    path('console/<str:ref>/partners_streams/', views.console_partners_streams, name="console_partners_streams"),
     path('console/<str:ref>/permissions/', views.console_permissions, name="console_permissions"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

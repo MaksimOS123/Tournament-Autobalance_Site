@@ -45,27 +45,24 @@
 <div class="content">
     <div class="row">
         <div class="col-md-4 offset-md-2">
-            test
+            <p>Title: {{ title }}</p>
+            <p>Description: {{ description}}</p>
+            <p>Rules: {{ rules }}</p>
+            <p>Full Rules: {{ full_rules }}</p>
+            <p>Prizes: {{ prizes }}</p>
+            <p>Date: {{ date }}</p>
+            <p>Time: {{ time }}</p>
         </div>
         <div class="col-md-4">
-            test2
+            <p>Schedule: {{ schedule }}</p>
+            <p>Contacts: {{ contacts }}</p>
+            <p>Discord Server: <a href="{{ discord_server }}">{{ discord_server }}</a></p>
+            <p>End Registration: {{ end_date }} {{ end_time }}</p>
+            <p>Registration: {{ type }}</p>
+            <p>Format: {{ fortype }}</p>
+            <p>Creator: {{ creator }}</p>
         </div>
     </div>
 </div>
-
-<p>{{ title }}</p>
-<p>{{ description }}</p>
-<p>{{ rules }}</p>
-<p>{{ full_rules }}</p>
-<p>{{ prizes }}</p>
-<p>{{ date }}</p>
-<p>{{ time }}</p>
-<p>{{ schedule }}</p>
-<p>{{ contacts }}</p>
-<p>{{ end_registration }}</p>
-<p>{{ members_count }}</p>
-<p>{{ type }}</p>
-<p>{{ fortype }}</p>
-<p>{{ players }}</p>
 
 {% endblock %}

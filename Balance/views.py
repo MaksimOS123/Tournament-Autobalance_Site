@@ -15,6 +15,7 @@ from Balance.forms import TournamentForm
 from Balance.forms import UserPhoto
 from Balance.models import UserProfile
 from Balance.models import TournamentModel
+from Balance.models import Streamers
 from pathlib import Path
 
 
@@ -159,16 +160,7 @@ def profile_statistics(request):
 
     user = User.objects.filter(username=request.user)[0]
 
-    if request.POST.get('old_pswd', False):
-        if user.check_password(request.POST.get('old_pswd')):
-            if request.POST.get('new_pswd') == request.POST.get('conf_pswd'):
-                user.set_password(request.POST.get('new_pswd'))
-                user.save()
-                context['success'] = 'The password change is successful'
-            else:
-                context['error'] = "New passwords don't match"
-        else:
-            context['error'] = 'The old password is invalid'
+    return HttpResponseRedirect('/profile/')
 
     return render(request, 'profile/profile_statistics.html', context)
 
@@ -243,15 +235,18 @@ def tournament(request, ref):
     context['schedule'] = tr.schedule
     context['contacts'] = tr.contacts
     context['end_date'] = tr.end_date
-    context['end_tine'] = tr.end_time
+    context['end_time'] = tr.end_time
     context['members_count'] = tr.members_count
     context['type'] = tr.type
     context['fortype'] = tr.formattype
 
-    players = []
+    '''players = []
     for i in range(len(tr.userprofile_set.all())):
         players.append(tr.userprofile_set.all()[i].user)
-    context['players'] = players
+    context['players'] = players'''
+
+    context['discord_server'] = tr.discord_server
+    context['creator'] = tr.creator
 
     return render(request, 'tournaments/tournament.html', context)
 
@@ -313,11 +308,12 @@ def create_tournament(request):
 
     if request.method == 'POST':
         f = TournamentForm(request.POST)
+        user = UserProfile.objects.get(user=request.user)
 
         if f.is_valid():
             c = request.user
-            DateTimeNow = str(datetime.datetime.now())
-            ref = str(hashlib.md5(DateTimeNow.encode()).hexdigest())
+            date_time_now = str(datetime.datetime.now())
+            ref = str(hashlib.md5(date_time_now.encode()).hexdigest())
             t = f.data['title']
             d = f.data['description']
             r = f.data['rules']
@@ -332,12 +328,20 @@ def create_tournament(request):
             tp = request.POST.get('inputType')
             frm = request.POST.get('inputFormat')
 
-            tournament = TournamentModel.objects.create(creator=c, ref=ref, title=t, description=d,
-                                                        rules=r, full_rules=fr, prizes=p, date=dt,
-                                                        time=tm, schedule=sc, contacts=cn, end_date=ed, end_time=et,
-                                                        type=tp, formattype=frm)
-            tournament.save()
-            tournament.userprofile_set.add(UserProfile.objects.get(user=request.user))
+            tour = TournamentModel.objects.create(creator=c, ref=ref, title=t, description=d,
+                                                  rules=r, full_rules=fr, prizes=p, date=dt,
+                                                  time=tm, schedule=sc, contacts=cn, end_date=ed, end_time=et,
+                                                  type=tp, formattype=frm)
+
+            if user.twitch:
+                tour.official_streamer_twitch = user.twitch
+            if user.youtube:
+                tour.official_streamer_youtube = user.youtube
+            if user.discord_server_tournament:
+                tour.discord_server = user.discord_server_tournament
+
+            tour.save()
+            tour.userprofile_set.add(UserProfile.objects.get(user=request.user))
 
             context['form'] = f
             return HttpResponseRedirect('/console/{}/'.format(ref))
@@ -390,8 +394,58 @@ def console_general(request, ref):
 
     tr = TournamentModel.objects.get(ref=ref)
 
+    today = datetime.datetime.today()
+    context['today'] = today.strftime("%Y-%m-%d")
+
     context['title'] = tr.title
+    context['creator'] = tr.creator
+    context['description'] = tr.description
+    context['rules'] = tr.rules
+    context['full_rules'] = tr.full_rules
+    context['prizes'] = tr.prizes
+    context['date'] = str(tr.date)
+    context['time'] = str(tr.time)
+    context['schedule'] = tr.schedule
+    context['contacts'] = tr.contacts
+    context['end_date'] = str(tr.end_date)
+    context['end_time'] = str(tr.end_time)
+    context['discord_server'] = tr.discord_server
+    context['formattype'] = tr.formattype
+    context['type'] = tr.type
     context['ref'] = ref
+
+    if request.method == 'POST':
+        if request.POST.get('title') or request.POST.get('title') == '':
+            tr.title = request.POST.get('title')
+        if request.POST.get('description') or request.POST.get('description') == '':
+            tr.description = request.POST.get('description')
+        if request.POST.get('rules') or request.POST.get('rules') == '':
+            tr.rules = request.POST.get('rules')
+        if request.POST.get('full_rules') or request.POST.get('full_rules') == '':
+            tr.full_rules = request.POST.get('full_rules')
+        if request.POST.get('prizes') or request.POST.get('prizes') == '':
+            tr.prizes = request.POST.get('prizes')
+        if request.POST.get('date') or request.POST.get('date') == '':
+            tr.date = request.POST.get('date')
+        if request.POST.get('time') or request.POST.get('time') == '':
+            tr.time = request.POST.get('time')
+        if request.POST.get('schedule') or request.POST.get('schedule') == '':
+            tr.schedule = request.POST.get('schedule')
+        if request.POST.get('contacts') or request.POST.get('contacts') == '':
+            tr.contacts = request.POST.get('contacts')
+        if request.POST.get('end_date') or request.POST.get('end_date') == '':
+            tr.end_date = request.POST.get('end_date')
+        if request.POST.get('end_time') or request.POST.get('end_time') == '':
+            tr.end_time = request.POST.get('end_time')
+        if request.POST.get('discord_server') or request.POST.get('discord_server') == '':
+            tr.discord_server = request.POST.get('discord_server')
+        if request.POST.get('inputType') or request.POST.get('inputType') == '':
+            tr.type = request.POST.get('inputType')
+        if request.POST.get('inputFormat') or request.POST.get('inputFormat') == '':
+            tr.formattype = request.POST.get('inputFormat')
+
+        tr.save()
+        return HttpResponseRedirect(request.path)
 
     return render(request, 'console/console_general.html', context)
 
@@ -432,17 +486,100 @@ def console_streams(request, ref):
 
     tr = TournamentModel.objects.get(ref=ref)
     user = UserProfile.objects.get(user=request.user)
-    if user.twitch:
-        context['Twitch'] = True
-        context['URLTwitch'] = user.twitch
-    if user.youtube:
-        context['Youtube'] = True
-        context['URLYoutube'] = user.youtube
+
+    context['title'] = tr.title
+    context['ref'] = ref
+    context = f_m.get_links_for_console(context, tr)
+
+    if request.method == 'POST':
+        if request.POST.get('link') and request.POST.get('inputPlatform'):
+            answer = eval(str(request.POST).split('<QueryDict: ')[1].split('>')[0])
+            f_m.get_language_stream(answer, tr)
+            f_m.edit_links(answer, tr, user)
+
+            return HttpResponseRedirect(request.path)
+        else:
+            tr.official_streamer_twitch = ''
+            tr.official_streamer_youtube = ''
+            tr.save()
+
+            return HttpResponseRedirect(request.path)
+
+    return render(request, 'console/console_streams.html', context)
+
+
+@login_required()
+def console_partners_streams(request, ref):
+    context = f_m.get_base_context(request)
+    if f_m.check_dark(request):
+        return HttpResponseRedirect(request.path)
+
+    tr = TournamentModel.objects.get(ref=ref)
+    user = UserProfile.objects.get(user=request.user)
+
+    streamers = tr.partners_streamers.all()
+    for i in range(len(streamers)):
+        link = streamers[i].link.split('/')
+        if link[len(link)-1]:
+            link = link[len(link)-1]
+        else:
+            link = link[len(link)-2]
+        streamers[i].link = link
+
+    context['streamers'] = streamers
 
     context['title'] = tr.title
     context['ref'] = ref
 
-    return render(request, 'console/console_streams.html', context)
+    if request.method == 'POST':
+        if request.POST.get('link') and request.POST.get('inputPlatform'):
+            answer = eval(str(request.POST).split('<QueryDict: ')[1].split('>')[0])
+            tr.partners_streamers.clear()
+            for i in range(len(answer['link'])):
+                if answer['inputPlatform'][i] == '1':
+                    if 'https://' in answer['link'][i]:
+                        a = answer['link'][i].split('/')
+                        if a[len(a)-1]:
+                            link_now = 'https://twitch.tv/' + a[len(a)-1]
+                            link_www_now = 'https://www.twitch.tv/' + a[len(a)-1]
+                        else:
+                            link_now = 'https://twitch.tv/' + a[len(a) - 2]
+                            link_www_now = 'https://www.twitch.tv/' + a[len(a) - 2]
+                    else:
+                        link_now = 'https://twitch.tv/' + answer['link'][i]
+                        link_www_now = 'https://www.twitch.tv/' + answer['link'][i]
+                    platform = 'T'
+                elif answer['inputPlatform'][i] == '2':
+                    if 'https://' in answer['link'][i]:
+                        a = answer['link'][i].split('/')
+                        if a[len(a)-1]:
+                            link_now = 'https://youtube.com/channel/' + a[len(a)-1]
+                            link_www_now = 'https://www.youtube.com/channel/' + a[len(a)-1]
+                        else:
+                            link_now = 'https://youtube.com/channel/' + a[len(a) - 2]
+                            link_www_now = 'https://www.youtube.com/channel/' + a[len(a) - 2]
+                    else:
+                        link_now = 'https://youtube.com/channel/' + answer['link'][i]
+                        link_www_now = 'https://www.youtube.com/channel/' + answer['link'][i]
+                    platform = 'Y'
+
+                if answer['inputLanguage'][i] == '1':
+                    language = 'ru'
+                if answer['inputLanguage'][i] == '2':
+                    language = 'en'
+                if answer['inputLanguage'][i] == '3':
+                    language = 'RN'
+
+                if link_now != user.twitch and link_www_now != user.twitch and link_now != user.youtube and link_www_now != user.youtube:
+                    tr.partners_streamers.create(link=link_now, language=language, platform=platform)
+
+            return HttpResponseRedirect(request.path)
+        else:
+            tr.partners_streamers.clear()
+
+            return HttpResponseRedirect(request.path)
+
+    return render(request, 'console/console_partners_streams.html', context)
 
 
 @login_required()

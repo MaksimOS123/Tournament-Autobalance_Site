@@ -11,6 +11,20 @@
     padding: 20px;
 }
 
+.lock {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.lock img{
+	height: 120%;
+	position: absolute;
+	left: -50px;
+	top: -20px;
+	background-color: #0000008c;
+}
+
 .console_links {
 	margin-top: 30px;
 	width: 350px;
@@ -41,7 +55,7 @@
 	font-size: 17px;
 }
 
-.console:hover {
+.console:hover:not(.disa) {
  box-shadow: 1px 1px #00ffff, 2px 2px #00ffff, 3px 3px #00ffff, 4px 4px #00ffff, 5px 5px #00ffff, 6px 6px #00ffff, 7px 7px #00ffff;
   -webkit-transform: translateX(-7px);
   -moz-transform: translateX(-7px);

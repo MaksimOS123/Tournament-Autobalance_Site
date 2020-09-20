@@ -5,9 +5,24 @@ from django.db import models
 # Create your models here.
 
 class Streamers(models.Model):
-    platform = models.TextField(default='')
-    language = models.TextField(default='')
     link = models.URLField(default='')
+
+    platform_type = (
+        ('T', 'Twitch'),
+        ('Y', 'Youtube'),
+    )
+
+    language_type = (
+        ('ru', 'Russian'),
+        ('en', 'English'),
+        ('RN', 'Russian+English'),
+    )
+
+    platform = models.CharField(max_length=1, choices=platform_type, default='T')
+    language = models.CharField(max_length=2, choices=language_type, default='en')
+
+    def __int__(self):
+        return self.id
 
 
 class TournamentModel(models.Model):
@@ -30,9 +45,9 @@ class TournamentModel(models.Model):
     archive = models.BooleanField(default=False)
 
     official_streamer_twitch = models.URLField(default='')
+    official_streamer_language = models.TextField(default='')
     official_streamer_youtube = models.URLField(default='')
-    partners_streamers_twitch = models.ForeignKey(Streamers, on_delete=models.CASCADE, default=1)
-    partners_streamers_youtube = models.TextField(default='')
+    partners_streamers = models.ManyToManyField(Streamers)
 
     discord_server = models.URLField(default='')
 

@@ -48,3 +48,39 @@
 	background-color: #02c5c5 !important;
 	border-color: #02c5c5 !important;
 }
+
+.twitch_button {
+	background-color: #5c008c !important;
+	border-color: #5c008c !important;
+	color: #fff !important;
+}
+
+.twitch_button:hover {
+	background-color: #410063 !important;
+	border-color: #410063 !important;
+	color: #fff !important;
+}
+
+.twitch_button:disabled {
+	background-color: #410063 !important;
+	border-color: #410063 !important;
+	color: #fff !important;
+}
+
+.youtube_button {
+	background-color: #690000 !important;
+	border-color: #690000 !important;
+	color: #fff !important;
+}
+
+.youtube_button:hover {
+	background-color: #480000 !important;
+	border-color: #480000 !important;
+	color: #fff !important;
+}
+
+.youtube_button:disabled {
+	background-color: #480000 !important;
+	border-color: #480000 !important;
+	color: #fff !important;
+}
