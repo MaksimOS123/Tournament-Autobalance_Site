@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="width: 720px; height: 320px; position: relative; top: 50px;">
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="username">{{ form.user_name.label }}</label>
+                {{ form.user_name }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email">{{ form.user_email.label }}</label>
+                {{ form.user_email }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="first_name">{{ form.user_first_name.label }}</label>
+                {{ form.user_first_name }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="last_name">{{ form.user_last_name.label }}</label>
+                {{ form.user_last_name }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="psw">{{ form.password.label }}</label>
+                {{ form.password }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="psw_c">{{ form.password_conf.label }}</label>
+                {{ form.password_conf }}
+            </div>
+        </div>
+        {% for error in errors %}
+            <span class="btn btn-danger mb-3 w-100">{{ error }}</span>
+        {% endfor %}
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <span class="btn btn-danger mb-3 w-100">{{ error|escape }}</span>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <span class="btn btn-danger mb-3 w-100">{{ error|escape }}</span>
+            {% endfor %}
+        {% endif %}
+        <div class="form-group col-2 offset-md-10 text-right">
+            <input type="submit" class="btn btn-primary" value="Sign Up"></input>
+        </div>
+    </form>
+</div>
+{% endblock %}

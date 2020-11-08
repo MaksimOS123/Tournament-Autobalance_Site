@@ -22,19 +22,31 @@ from pathlib import Path
 # Main
 
 def index_page(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
     context['title'] = "Main page"
 
-    return render(request, 'index.html', context)
+    tournaments = []
+
+    for i in range(1, TournamentModel.objects.all().last().id+1):
+        tour = TournamentModel.objects.get(id=i)
+        if tour.public:
+            tournaments.append(tour)
+
+    context['tournaments'] = tournaments
+
+    if mobile:
+        return render(request, 'mobile/index.html', context)
+    else:
+        return render(request, 'index.html', context)
 
 
 # Log and Reg
 
 def sign_up(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -70,14 +82,17 @@ def sign_up(request):
         f = SignInForm()
         context['form'] = f
 
-    return render(request, 'registration/register.html', context)
+    if mobile:
+        return render(request, 'mobile/registration/register.html', context)
+    else:
+        return render(request, 'registration/register.html', context)
 
 
 # Profile
 
 @login_required
 def profile(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -123,12 +138,15 @@ def profile(request):
 
     context['profile_form'] = profile_form
 
-    return render(request, 'profile/profile.html', context)
+    if mobile:
+        return render(request, 'mobile/profile/profile.html', context)
+    else:
+        return render(request, 'profile/profile.html', context)
 
 
 @login_required()
 def profile_pass(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -147,12 +165,15 @@ def profile_pass(request):
         else:
             context['error'] = 'The old password is invalid'
 
-    return render(request, 'profile/profile_pass.html', context)
+    if mobile:
+        return render(request, 'mobile/profile/profile_pass.html', context)
+    else:
+        return render(request, 'profile/profile_pass.html', context)
 
 
 @login_required()
 def profile_statistics(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -162,12 +183,15 @@ def profile_statistics(request):
 
     return HttpResponseRedirect('/profile/')
 
-    return render(request, 'profile/profile_statistics.html', context)
+    if mobile:
+        return render(request, 'mobile/profile/profile_statistics.html', context)
+    else:
+        return render(request, 'profile/profile_statistics.html', context)
 
 
 @login_required()
 def profile_integrations(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -194,11 +218,14 @@ def profile_integrations(request):
         user.save()
         return HttpResponseRedirect(request.path)
 
-    return render(request, 'profile/profile_integrations.html', context)
+    if mobile:
+        return render(request, 'mobile/profile/profile_integrations.html', context)
+    else:
+        return render(request, 'profile/profile_integrations.html', context)
 
 
 def user_page(request, user_id):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -214,13 +241,16 @@ def user_page(request, user_id):
     if request.user == user:
         return HttpResponseRedirect('/profile/')
 
-    return render(request, 'profile/user_page.html', context)
+    if mobile:
+        return render(request, 'mobile/profile/user_page.html', context)
+    else:
+        return render(request, 'profile/user_page.html', context)
 
 
 # Tournament
 
 def tournament(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -248,12 +278,15 @@ def tournament(request, ref):
     context['discord_server'] = tr.discord_server
     context['creator'] = tr.creator
 
-    return render(request, 'tournaments/tournament.html', context)
+    if mobile:
+        return render(request, 'mobile/tournaments/tournament.html', context)
+    else:
+        return render(request, 'tournaments/tournament.html', context)
 
 
 @login_required()
 def my_tournaments(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -275,12 +308,15 @@ def my_tournaments(request):
 
     context['tournaments'] = list_of_tournaments
 
-    return render(request, 'tournaments/my_tournaments.html', context)
+    if mobile:
+        return render(request, 'mobile/tournaments/my_tournaments.html', context)
+    else:
+        return render(request, 'tournaments/my_tournaments.html', context)
 
 
 @login_required()
 def archives(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -294,12 +330,15 @@ def archives(request):
     context['tournaments'] = list_of_tournaments
     context['title'] = "Archives"
 
-    return render(request, 'tournaments/archives.html', context)
+    if mobile:
+        return render(request, 'mobile/tournaments/archives.html', context)
+    else:
+        return render(request, 'tournaments/archives.html', context)
 
 
 @login_required()
 def create_tournament(request):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -354,14 +393,17 @@ def create_tournament(request):
     date = datetime.datetime.today()
     context['date'] = date.strftime("%Y-%m-%d")
 
-    return render(request, 'tournaments/create_tournament.html', context)
+    if mobile:
+        return render(request, 'mobile/tournaments/create_tournament.html', context)
+    else:
+        return render(request, 'tournaments/create_tournament.html', context)
 
 
 # Console
 
 @login_required()
 def console_tournament(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -383,12 +425,15 @@ def console_tournament(request, ref):
             tr.save()
             return HttpResponseRedirect('/console/{}/'.format(ref))
 
-    return render(request, 'tournaments/console_tournament.html', context)
+    if mobile:
+        return render(request, 'mobile/tournaments/console_tournament.html', context)
+    else:
+        return render(request, 'tournaments/console_tournament.html', context)
 
 
 @login_required()
 def console_general(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -447,12 +492,15 @@ def console_general(request, ref):
         tr.save()
         return HttpResponseRedirect(request.path)
 
-    return render(request, 'console/console_general.html', context)
+    if mobile:
+        return render(request, 'mobile/console/console_general.html', context)
+    else:
+        return render(request, 'console/console_general.html', context)
 
 
 @login_required()
 def console_participant(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -461,12 +509,15 @@ def console_participant(request, ref):
     context['title'] = tr.title
     context['ref'] = ref
 
-    return render(request, 'console/console_participant.html', context)
+    if mobile:
+        return render(request, 'mobile/console/console_participant.html', context)
+    else:
+        return render(request, 'console/console_participant.html', context)
 
 
 @login_required()
 def console_fields(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -475,12 +526,15 @@ def console_fields(request, ref):
     context['title'] = tr.title
     context['ref'] = ref
 
-    return render(request, 'console/console_fields.html', context)
+    if mobile:
+        return render(request, 'mobile/console/console_fields.html', context)
+    else:
+        return render(request, 'console/console_fields.html', context)
 
 
 @login_required()
 def console_streams(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -505,12 +559,15 @@ def console_streams(request, ref):
 
             return HttpResponseRedirect(request.path)
 
-    return render(request, 'console/console_streams.html', context)
+    if mobile:
+        return render(request, 'mobile/console/console_streams.html', context)
+    else:
+        return render(request, 'console/console_streams.html', context)
 
 
 @login_required()
 def console_partners_streams(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -579,12 +636,15 @@ def console_partners_streams(request, ref):
 
             return HttpResponseRedirect(request.path)
 
-    return render(request, 'console/console_partners_streams.html', context)
+    if mobile:
+        return render(request, 'mobile/console/console_partners_streams.html', context)
+    else:
+        return render(request, 'console/console_partners_streams.html', context)
 
 
 @login_required()
 def console_permissions(request, ref):
-    context = f_m.get_base_context(request)
+    context, mobile = f_m.get_base_context(request)
     if f_m.check_dark(request):
         return HttpResponseRedirect(request.path)
 
@@ -593,4 +653,7 @@ def console_permissions(request, ref):
     context['title'] = tr.title
     context['ref'] = ref
 
-    return render(request, 'console/console_permissions.html', context)
+    if mobile:
+        return render(request, 'mobile/console/console_permissions.html', context)
+    else:
+        return render(request, 'console/console_permissions.html', context)

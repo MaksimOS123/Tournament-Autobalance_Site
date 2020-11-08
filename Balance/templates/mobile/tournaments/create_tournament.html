@@ -1,0 +1,158 @@
+{% extends 'base_acc.html' %}
+
+{% block content %}
+<div class="header">
+  <nav class="navbar navbar-expand-lg">
+      <h2 style="font-weight: 700;"><i class="fas fa-trophy"></i> Create new tournament</h2>
+  </nav>
+</div>
+<div class="content">
+  <div class="container" style="width: 940px;">
+      <form method="POST">
+          {% csrf_token %}
+          <div class="form-row">
+              <div class="form-group col-md-7">
+                  <label for="title">Tournament name</label>
+                  {{ form.title }}
+              </div>
+              <div class="form-group col-md-3">
+                  <label for="date">Start date</label>
+                  <input type="date" class="form-control" id="date" name="date" min="{{ date }}" max="2030-12-31">
+              </div>
+              <div class="form-group col-md-2">
+                  <label for="time">Start time</label>
+                  <input type="time" class="form-control" id="time" name="time">
+              </div>
+              <div class="form-group col-md-12">
+                  <div id="accordion">
+                      <div class="card menu">
+                          <div class="card-header" id="headingOne">
+                              <h5 class="mb-0">
+                                  <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                      Description
+                                  </a>
+                              </h5>
+                          </div>
+
+                          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                              <div class="card-body">
+                                  <textarea class="form-control" id="description" name="description" style="height: 100px;"></textarea>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="card menu">
+                          <div class="card-header" id="headingTwo">
+                              <h5 class="mb-0">
+                                  <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                      Fast Rules
+                                  </a>
+                              </h5>
+                          </div>
+
+                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                              <div class="card-body">
+                                  <textarea class="form-control" id="rules" name="rules" style="height: 100px;"></textarea>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="card menu">
+                          <div class="card-header" id="headingThree">
+                              <h5 class="mb-0">
+                                  <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                      Full Rules
+                                  </a>
+                              </h5>
+                          </div>
+
+                          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                              <div class="card-body">
+                                  <textarea class="form-control" id="full_rules" name="full_rules" style="height: 100px;"></textarea>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="card menu">
+                          <div class="card-header" id="headingFour">
+                              <h5 class="mb-0">
+                                  <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                      Prizes
+                                  </a>
+                              </h5>
+                          </div>
+
+                          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                              <div class="card-body">
+                                  <textarea class="form-control" id="prizes" name="prizes" style="height: 100px;"></textarea>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="card menu">
+                          <div class="card-header" id="headingFive">
+                              <h5 class="mb-0">
+                                  <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                      Schedule
+                                  </a>
+                              </h5>
+                          </div>
+
+                          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                              <div class="card-body">
+                                  <textarea class="form-control" id="schedule" name="schedule" style="height: 100px;"></textarea>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="card menu">
+                          <div class="card-header" id="headingSix">
+                              <h5 class="mb-0">
+                                  <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                      Contacts
+                                  </a>
+                              </h5>
+                          </div>
+
+                          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                              <div class="card-body">
+                                  <textarea class="form-control" id="contacts" name="contacts" style="height: 100px;"></textarea>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group col-md-4">
+                  <label for="inputType">Registration</label>
+                  <select id="inputType" class="form-control" name="inputType">
+                      <option selected>Free agents</option>
+                      <option disabled>Pair Registration</option>
+                      <option disabled>Teams</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-4">
+                  <label for="inputFormat">Format</label>
+                  <select id="inputFormat" class="form-control" name="inputFormat">
+                      <option selected>Single Elimination</option>
+                      <option>Round Robin</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-4">
+                  <label for="end_date">End registration date and time</label>
+                  <div class="row">
+                      <div class="col-md-6">
+                          <input type="date" class="form-control" id="end_date" name="end_date" min="{{ date }}" max="2030-12-31">
+                      </div>
+                      <div class="col-md-6">
+                          <input type="time" class="form-control" id="end_time" name="end_time">
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group col-2 offset-md-10 text-right">
+                  <button type="submit" class="btn btn-success sea"><i class="fas fa-plus"></i> Create</button>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+{% endblock %}

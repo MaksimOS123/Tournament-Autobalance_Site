@@ -25,7 +25,13 @@ def get_base_context(request):
             context['mode_console'] = 'console.css'
             context['mode_img'] = 'light.jpg'
 
-    return context
+    platform = str(request.META['HTTP_USER_AGENT'])
+    if "Android" in platform or "iPhone" in platform:
+        mobile = True
+    else:
+        mobile = False
+
+    return context, mobile
 
 
 def check_dark(request):

@@ -1,0 +1,126 @@
+{% extends 'base_acc.html' %}
+
+{% block extended_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static mode_console %}">
+{% endblock %}
+
+{% block content %}
+<div class="header">
+  <nav class="navbar navbar-expand-lg">
+      <h2 style="font-weight: 700;"><i class="fas fa-server"></i> Console</h2>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav justify-content-end">
+              <li class="nav-item">
+                  <a href="/tournament/{{ ref }}" class="btn btn-primary purple" style="width: 250px; font-size: 18px;"><i class="fas fa-search"></i> Tournament public page</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+</div>
+<div class="content">
+    <div class="container" style="width: 100%; background-color: inherit; position: relative;">
+        <div class="row">
+            <div class="col-4">
+                <div class="console trans" onClick="window.location='{% url 'console_general' ref %}'">
+                    <div class="console_header">
+                        <p><i class="fas fa-sliders-h"></i> General</p>
+                    </div>
+                    <div class="console_desc">
+                        <p>Manage the highest level of information about your tournament, its description, size and contact information for your participants to reach you.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="console disa">
+                    <div class="lock">
+                        <img src="{% static 'lock.png' %}">
+                        <div class="console_header">
+                            <p><i class="fas fa-users"></i> Participant</p>
+                        </div>
+                        <div class="console_desc">
+                            <p>Manage the participant settings like the minimum and maximum size of teams, and enable the check-in.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="console disa">
+                    <div class="lock">
+                        <img src="{% static 'lock.png' %}">
+                        <div class="console_header">
+                            <p><i class="fas fa-edit"></i> Custom fields</p>
+                        </div>
+                        <div class="console_desc">
+                            <p>Manage the information your participants will have to provide when registering, that can be displayed on their tournament profile or kept private.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="console trans" onClick="window.location='{% url 'console_streams' ref %}'">
+                    <div class="console_header">
+                        <p><i class="fas fa-video"></i> Streams</p>
+                    </div>
+                    <div class="console_desc">
+                        <p>Manage the streams that will be used to broadcast your tournament and its matches. Streams created on the tournament level may then be applied to specific matches.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="console disa">
+                    <div class="lock">
+                        <img src="{% static 'lock.png' %}">
+                        <div class="console_header">
+                            <p><i class="fas fa-lock"></i> Permissions</p>
+                        </div>
+                        <div class="console_desc">
+                            <p>Manage the permissions you give to your tournament admins, so they can help you with the setup and management of the tournament.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="console_links">
+                    <div class="console_header">
+                        <p><i class="fas fa-wrench"></i> Global operations</p>
+                    </div>
+                    <div class="links">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="publish" value="publish">
+                                    {% if public %}
+                                        <button class="btn btn-link pd" type="submit"><i class="fab fa-telegram-plane"></i> Unpublish</button>
+                                    {% else %}
+                                        <button class="btn btn-link pd" type="submit"><i class="fab fa-telegram-plane"></i> Publish</button>
+                                    {% endif %}
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <a class="btn btn-link pd disabled" type="button"><i class="far fa-copy" aria-disabled="true"></i> Duplicate</a>
+                            </div>
+                            <div class="col-md-6">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="archive" value="archive">
+                                    {% if archive %}
+                                        <button class="btn btn-link ad" type="submit"><i class="far fa-folder-open"></i> Restore</button>
+                                    {% else %}
+                                        <button class="btn btn-link ad" type="submit"><i class="fas fa-archive"></i> Archive</button>
+                                    {% endif %}
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <a class="btn btn-link ad disabled" type="button"><i class="far fa-trash-alt" aria-disabled="true"></i> Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

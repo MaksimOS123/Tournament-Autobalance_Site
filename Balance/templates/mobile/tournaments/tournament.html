@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="image_tournament">
+    {% load static %}
+    <img src="{% static mode_img %}">
+    <div class="row align-items-center">
+        <div class="col-md-3 offset-md-2">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="col-md-2 offset-md-3 text-center">
+            <div class="info">
+                <div class="members">
+                    <h6>Free agents: {{ members_count }}</h6>
+                </div>
+                <hr>
+                <div class="join">
+                    <button type="submit" class="btn btn-success purple">Join</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light tournament_links">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav offset-md-2">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Information <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Participants</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Brackets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Media</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Announcements</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="content">
+    <div class="row">
+        <div class="col-md-4 offset-md-2">
+            <p>Title: {{ title }}</p>
+            <p>Description: {{ description}}</p>
+            <p>Rules: {{ rules }}</p>
+            <p>Full Rules: {{ full_rules }}</p>
+            <p>Prizes: {{ prizes }}</p>
+            <p>Date: {{ date }}</p>
+            <p>Time: {{ time }}</p>
+        </div>
+        <div class="col-md-4">
+            <p>Schedule: {{ schedule }}</p>
+            <p>Contacts: {{ contacts }}</p>
+            <p>Discord Server: <a href="{{ discord_server }}">{{ discord_server }}</a></p>
+            <p>End Registration: {{ end_date }} {{ end_time }}</p>
+            <p>Registration: {{ type }}</p>
+            <p>Format: {{ fortype }}</p>
+            <p>Creator: {{ creator }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
