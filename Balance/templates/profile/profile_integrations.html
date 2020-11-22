@@ -4,6 +4,14 @@
 <div class="header">
   <nav class="navbar navbar-expand-lg">
       <h2 style="font-weight: 700;"><i class="fas fa-user-circle"></i> Account</h2>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav justify-content-end">
+              <li class="nav-item">
+                  <a href="{% url 'user_page' id %}" class="btn btn-primary purple" style="width: 180px; font-size: 18px;"><i class="fas fa-user"></i> My profile page</a>
+              </li>
+          </ul>
+      </div>
   </nav>
 </div>
 <div class="content" style="padding-right: 50px;">
@@ -38,23 +46,19 @@
                                 <div class="form-row">
                                     {% csrf_token %}
                                     <div class="form-group col-md-6">
-                                        <label for="twitch" style="font-size: 20px;"><i class="fab fa-twitch twitch"></i> Your twitch link</label>
+                                        <label for="twitch" style="font-size: 20px;"><i class="fab fa-twitch twitch"></i> Twitch link</label>
                                         <input type="url" class="form-control" id="twitch" name="twitch" value="{{ twitch }}"></input>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="youtube" style="font-size: 20px;"><i class="fab fa-youtube youtube"></i> Your youtube link</label>
+                                        <label for="youtube" style="font-size: 20px;"><i class="fab fa-youtube youtube"></i> Youtube link</label>
                                         <input type="url" class="form-control" id="youtube" name="youtube" value="{{ youtube }}"></input>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="discord" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Your discord tag</label>
+                                        <label for="discord" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Discord tag</label>
                                         <input type="text" class="form-control" id="discord" name="discord" value="{{ discord }}"></input>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="discord_server" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Your discord server</label>
-                                        <input type="url" class="form-control" id="discord_server" name="discord_server" value="{{ discord_server }}"></input>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="discord_server_tournament" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Your tournament discord server</label>
+                                        <label for="discord_server_tournament" style="font-size: 20px;"><i class="fab fa-discord discord"></i> Tournament discord server</label>
                                         <input type="url" class="form-control" id="discord_server_tournament" name="discord_server_tournament" value="{{ discord_server_tournament }}"></input>
                                     </div>
                                     <div class="form-group col-md-2 offset-md-10 text-right">
@@ -83,17 +87,10 @@
                         </a>
                     </h5>
                 </div>
-                <div class="card-header" id="headingThree">
+                <div class="card-header" id="headingThree" style="border-radius: 0 0 10px 10px;">
                     <h5 class="mb-0">
                         <a class="btn btn-link disabled" type="button" href="{% url 'profile_integrations' %}" aria-disabled="true" style="width: 100%">
                             Integrations
-                        </a>
-                    </h5>
-                </div>
-                <div class="card-header" id="headingFour" style="border-radius: 0 0 10px 10px;">
-                    <h5 class="mb-0">
-                        <a class="btn btn-link" type="button" href="{% url 'profile_security' %}" style="width: 100%">
-                            Security
                         </a>
                     </h5>
                 </div>

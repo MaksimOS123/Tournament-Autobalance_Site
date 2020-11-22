@@ -4,16 +4,42 @@
 <div class="header">
   <nav class="navbar navbar-expand-lg">
       <h2 style="font-weight: 700;"><i class="fas fa-user-circle"></i> Account</h2>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav justify-content-end">
+              <li class="nav-item">
+                  <a href="{% url 'user_page' id %}" class="btn btn-primary purple" style="width: 180px; font-size: 18px;"><i class="fas fa-user"></i> My profile page</a>
+              </li>
+          </ul>
+      </div>
   </nav>
 </div>
+
+<script>
+function POST(i){
+    $.ajax
+    ({
+        url: '/profile/',
+        data: {"csrfmiddlewaretoken": "{{ csrf_token }}", "bg": i},
+        type: 'post',
+        success: function () {
+            window.location = '/profile/'
+        },
+        error: function () {
+            console.log('error')
+        }
+    });
+};
+</script>
+
 <div class="content" style="padding-right: 50px;">
     <div class="row">
         <div class="col-md-10">
-            <div class="container" style="position: relative; padding: 0px;">
+            <div class="container shadow" style="position: relative; padding: 0px;">
                 <div class="container-header" style="width: 100%; position: relative; border-radius: 10px 10px 0 0;">
                     Edit your profile
                 </div>
-                <div class="container-content shadow" style="border-radius: 0 0 10px 10px;">
+                <div class="container-content" style="border-radius: 0 0 10px 10px;">
                     <div class="row">
                         <div class="col-12">
                             {% if success %}
@@ -53,16 +79,6 @@
                                     <div class="col">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="first_name">First name</label>
-                                                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ first_name }}" requaried>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="last_name">Last name</label>
-                                                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ last_name }}" requaried>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
                                                 <label for="username">Login</label>
                                                 <input type="text" class="form-control" name="username" id="username" value="{{ username }}" requaried>
                                             </div>
@@ -71,9 +87,47 @@
                                                 <input type="email" class="form-control" name="email" id="email" value="{{ email }}" requaried>
                                             </div>
                                         </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="old_pswd">Old password</label>
+                                                <input type="password" class="form-control" id="old_pswd" name="old_pswd" placeholder="********">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="new_pswd">New password</label>
+                                                <input type="password" class="form-control" id="new_pswd" name="new_pswd" placeholder="********">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-2 offset-md-10 text-right">
                                         <input type="submit" class="btn btn-primary blue" value="Update"></input>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12" style="margin-bottom: 0px;">
+                                                <hr style="margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid rgb(255 255 255 / 42%); width: 100%;"></hr>
+                                                <div class="info_bg text-center">
+                                                    <h5>Background</h5>
+                                                </div>
+                                                {% load static %}
+                                                <div class="backgrounds text-center">
+                                                    {% for i in backgrounds %}
+                                                    {% if i != bg_user %}
+                                                    <div class="border_module">
+                                                        <div class="module">
+                                                            <img src="{% get_static_prefix %}backgrounds/png/{{ i }}.png" onclick="POST('{{i}}')">
+                                                        </div>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="border_module" style="background-color: #00ffff;">
+                                                        <div class="module">
+                                                            <img src="{% get_static_prefix %}backgrounds/png/{{ i }}.png" onclick="POST('{{i}}')">
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -98,17 +152,10 @@
                         </a>
                     </h5>
                 </div>
-                <div class="card-header" id="headingThree">
+                <div class="card-header" id="headingThree" style="border-radius: 0 0 10px 10px;">
                     <h5 class="mb-0">
                         <a class="btn btn-link" type="button" href="{% url 'profile_integrations' %}" style="width: 100%">
                             Integrations
-                        </a>
-                    </h5>
-                </div>
-                <div class="card-header" id="headingFour" style="border-radius: 0 0 10px 10px;">
-                    <h5 class="mb-0">
-                        <a class="btn btn-link" type="button" href="{% url 'profile_security' %}" style="width: 100%">
-                            Security
                         </a>
                     </h5>
                 </div>

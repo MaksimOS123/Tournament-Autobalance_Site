@@ -3,13 +3,30 @@
 {% block content %}
 <div class="container" style="position: relative; top: 50px; background-color: #ffffff00; overflow: visible;">
     {% for i in tournaments %}
-    <div class="card shadow text-white bg-dark" style="margin-bottom: 50px">
+
+    {% if mode_img == "light.jpg" or not request.user.is_authenticated %}
+    <div class="card shadow text-right" style="margin-bottom: 50px">
+    {% else %}
+    <div class="card shadow text-white bg-dark text-right" style="margin-bottom: 50px">
+    {% endif %}
+
         {% load static %}
+
+        {% if request.user.is_authenticated %}
         <img src="{% static mode_img %}" class="card-img-top">
+        {% else %}
+        <img src="{% static 'light.jpg' %}" class="card-img-top">
+        {% endif %}
+
+        {% if mode_img == "light.jpg" or not request.user.is_authenticated %}
+        <div class="card-body" style="background-color: #fff;">
+        {% else %}
         <div class="card-body" style="background-color: #262626;">
+        {% endif %}
+
             <h3 class="card-title text-center">{{ i.title }}</h3>
-            <p class="card-text">{{ i.description }}</p>
-            <a href="{% url 'tournament' i.ref %}" class="btn btn-primary">Переход куда-нибудь</a>
+            <p class="card-text text-center">{{ i.description }}</p>
+            <a href="{% url 'tournament' i.ref %}" class="btn btn-primary purple">Read More</a>
         </div>
     </div>
     {% endfor %}

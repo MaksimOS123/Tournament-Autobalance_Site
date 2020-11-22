@@ -98,6 +98,30 @@ def profile(request):
 
     context['title'] = 'Edit profile'
 
+    backgrounds = ['bang',
+                    'cybercity',
+                    'cycle',
+                    'ground',
+                    'ink',
+                    'stars',
+                    'winter',
+                    'black_hole',
+                    'cyber',
+                    'forest']
+
+    code_bg = {
+        'bang': '05',
+        'cybercity': '06',
+        'cycle': '02',
+        'ground': '03',
+        'ink': '07',
+        'stars': '01',
+        'winter': '04',
+        'black_hole': '08',
+        'cyber': '09',
+        'forest': '10',
+    }
+
     user = User.objects.filter(username=request.user)[0]
     this_user = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
@@ -109,16 +133,21 @@ def profile(request):
                     context['success'] = 'The login change is successful'
                 else:
                     context['error'] = 'This login is already taken'
+
         if request.POST.get('email', False):
             if user.email != request.POST.get('email'):
                 user.email = request.POST.get('email')
                 user.save()
                 context['success'] = 'The email change is successful'
-        if request.POST.get('first_name', False) and request.POST.get('last_name', False):
-            if user.first_name != request.POST.get('first_name') or user.last_name != request.POST.get('last_name'):
-                user.first_name, user.last_name = request.POST.get('first_name'), request.POST.get('last_name')
-                user.save()
-                context['success'] = 'The name change is successful'
+
+        if request.POST.get('old_pswd', False):
+            if user.check_password(request.POST.get('old_pswd')):
+                if request.POST.get('new_pswd'):
+                    user.set_password(request.POST.get('new_pswd'))
+                    user.save()
+                    context['success'] = 'The password change is successful'
+            else:
+                context['error'] = 'The old password is invalid'
 
         if request.FILES:
             profile_form = UserPhoto(instance=this_user, data=request.POST, files=request.FILES)
@@ -133,42 +162,22 @@ def profile(request):
                 profile_form = UserPhoto(instance=this_user)
         else:
             profile_form = UserPhoto(instance=this_user)
+
+        if request.POST.get('bg', False):
+            this_user.bg_user = code_bg[request.POST.get('bg')]
+            this_user.save()
+
     else:
         profile_form = UserPhoto(instance=this_user)
 
     context['profile_form'] = profile_form
+    context['backgrounds'] = backgrounds
+    context['bg_user'] = this_user.get_bg_user_display()
 
     if mobile:
         return render(request, 'mobile/profile/profile.html', context)
     else:
         return render(request, 'profile/profile.html', context)
-
-
-@login_required()
-def profile_pass(request):
-    context, mobile = f_m.get_base_context(request)
-    if f_m.check_dark(request):
-        return HttpResponseRedirect(request.path)
-
-    context['title'] = 'Edit profile'
-
-    user = User.objects.filter(username=request.user)[0]
-
-    if request.POST.get('old_pswd', False):
-        if user.check_password(request.POST.get('old_pswd')):
-            if request.POST.get('new_pswd') == request.POST.get('conf_pswd'):
-                user.set_password(request.POST.get('new_pswd'))
-                user.save()
-                context['success'] = 'The password change is successful'
-            else:
-                context['error'] = "New passwords don't match"
-        else:
-            context['error'] = 'The old password is invalid'
-
-    if mobile:
-        return render(request, 'mobile/profile/profile_pass.html', context)
-    else:
-        return render(request, 'profile/profile_pass.html', context)
 
 
 @login_required()
@@ -183,11 +192,6 @@ def profile_statistics(request):
 
     return HttpResponseRedirect('/profile/')
 
-    if mobile:
-        return render(request, 'mobile/profile/profile_statistics.html', context)
-    else:
-        return render(request, 'profile/profile_statistics.html', context)
-
 
 @login_required()
 def profile_integrations(request):
@@ -200,7 +204,6 @@ def profile_integrations(request):
     context['steam'] = user.steam
     context['youtube'] = user.youtube
     context['discord'] = user.discord
-    context['discord_server'] = user.discord_server
     context['discord_server_tournament'] = user.discord_server_tournament
 
     if request.method == 'POST':
@@ -230,16 +233,16 @@ def user_page(request, user_id):
         return HttpResponseRedirect(request.path)
 
     user = User.objects.get(id=user_id)
-    context['username'] = user
-    context['first_name'] = user.first_name
-    context['last_name'] = user.last_name
-    context['email'] = user.email
     if UserProfile.objects.filter(user=user).exists():
-        if UserProfile.objects.get(user=user).photo:
-            context['photo'] = UserProfile.objects.get(user=user).photo
+        this_user = UserProfile.objects.get(user=user)
 
-    if request.user == user:
-        return HttpResponseRedirect('/profile/')
+    context['username'] = user
+    context['email'] = user.email
+
+    if this_user.photo:
+        context['photo'] = UserProfile.objects.get(user=user).photo
+
+    context['bg'] = this_user.get_bg_user_display()
 
     if mobile:
         return render(request, 'mobile/profile/user_page.html', context)

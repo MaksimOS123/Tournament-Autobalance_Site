@@ -73,14 +73,32 @@ class TournamentModel(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     twitch = models.URLField(default='')
     steam = models.URLField(default='')
     youtube = models.URLField(default='')
     discord = models.TextField(default='')
-    discord_server = models.URLField(default='')
     discord_server_tournament = models.URLField(default='')
+
     dark_mode = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='images/', blank=True, default='no_photo.jpg')
+
+    BACKGROUDS = (
+        ('00', 'default'),
+        ('01', 'stars'),
+        ('02', 'cycle'),
+        ('03', 'ground'),
+        ('04', 'winter'),
+        ('05', 'bang'),
+        ('06', 'cybercity'),
+        ('07', 'ink'),
+        ('08', 'black_hole'),
+        ('09', 'cyber'),
+        ('10', 'forest'),
+    )
+
+    bg_user = models.CharField(max_length=2, choices=BACKGROUDS, default='00')
+
     tournaments = models.ManyToManyField(TournamentModel)
 
 

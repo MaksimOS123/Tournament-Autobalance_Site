@@ -34,7 +34,6 @@ urlpatterns = [
 
     # Profile
     path('profile/', views.profile, name="profile"),
-    path('profile/security/', views.profile_pass, name="profile_security"),
     path('profile/statistics/', views.profile_statistics, name="profile_statistics"),
     path('profile/integrations/', views.profile_integrations, name="profile_integrations"),
     path('user/<int:user_id>/', views.user_page, name="user_page"),

@@ -153,3 +153,28 @@ body {
 }
 
 .example-1 .label:hover i,.example-1 .label:hover .title{color:#d8d8d8}
+
+.card {
+    overflow: hidden;
+    border-radius: 15px !important;
+}
+
+.card-text {
+    color: #1b1b1b;
+}
+
+.btn-darkmode {
+  color: #fff !important;
+}
+
+::-webkit-scrollbar { width: 5px; }
+
+::-webkit-scrollbar-track {
+  background: #f7efef;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a5a2a2;
+  border-radius: 5px;
+}

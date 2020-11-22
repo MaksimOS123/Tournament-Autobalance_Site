@@ -27,6 +27,13 @@
                           <a class="dropdown-item" href="{% url 'logout' %}">Exit</a>
                       </div>
                   </li>
+                  <li>
+                      <form method="POST" id="darks">
+                          {% csrf_token %}
+                          <input type="hidden" name="dark" value="dark">
+                          <button type="submit" class="btn btn-link fonts btn-darkmode"><i class="fas fa-moon"></i></button>
+                      </form>
+                  </li>
                   {% else %}
                   <li class="nav-item">
                       <a class="nav-link" href="{% url 'login' %}" style="color: #fff"><i class="fas fa-key"></i></a>

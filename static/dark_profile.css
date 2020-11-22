@@ -225,3 +225,36 @@ select {
     background-color: #262626;
     padding: 20px;
 }
+
+.module {
+    position: relative;
+	background-color: #fff;
+	height: 80px;
+	width: 80px;
+	clip-path: polygon(15px 0,100% 0,100% calc(100% - 15px), calc(100% - 15px) 100%,0 100%,0 15px);
+	overflow: hidden;
+	border-radius: 5px;
+}
+
+.module img {
+    display: block;
+    height: 100%;
+}
+
+.border_module {
+    position: relative;
+    padding: 1px;
+	background-color: #ff1576;
+	height: 82px;
+	width: 82px;
+	clip-path: polygon(15px 0,100% 0,100% calc(100% - 15px), calc(100% - 15px) 100%,0 100%,0 15px);
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.info_bg {
+	position: relative;
+	margin-bottom: 20px;
+}

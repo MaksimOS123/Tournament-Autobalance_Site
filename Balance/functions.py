@@ -5,10 +5,9 @@ from Balance.models import UserProfile
 def get_base_context(request):
     context = {}
     if request.user.is_authenticated:
-        context['first_name'] = request.user.first_name
-        context['last_name'] = request.user.last_name
         context['email'] = request.user.email
         context['username'] = request.user
+        context['id'] = request.user.id
 
         if not UserProfile.objects.filter(user=request.user).exists():
             UserProfile(user=request.user).save()

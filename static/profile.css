@@ -45,6 +45,12 @@ body {
 	color: #212529 !important;
 }
 
+.create hr {
+	border-top: 1px solid rgba(119, 119, 119, 0.26) !important;
+	position: relative;
+	top: 50px;
+}
+
 .create {
 	margin-top: 30px;
 	width: 350px;
@@ -63,7 +69,6 @@ body {
 .create img{
 	width: 100%;
 	position: relative;
-	top: -40px;
 	display: block;
 }
 
@@ -71,25 +76,13 @@ body {
 	white-space: nowrap;
 	padding-left: 15px;
 	padding-right: 15px;
+	position: relative;
+	top: 40px;
 }
 
 .gradient p{
     color: #000 !important;
     font-weight: 400 !important;
-}
-
-.gradient::after{
-	content: '';
-    position: absolute;
-    right: 15px;
-    bottom: 40px;
-    width: 40px;
-    height: 50px;
-    background: -moz-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
-    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
-    background: -o-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
-    background: -ms-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #fff 100%);
 }
 
 .trans {
@@ -115,6 +108,7 @@ body {
 .create p{
 	color: #000;
 	font-weight: 700;
+	position: relative;
 }
 
 .fonts {
