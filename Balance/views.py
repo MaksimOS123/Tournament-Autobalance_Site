@@ -58,16 +58,13 @@ def sign_up(request):
 
         if f.is_valid():
             u_n = f.data['user_name']
-            u_fn = f.data['user_first_name']
-            u_ln = f.data['user_last_name']
             u_em = f.data['user_email']
             u_pw = f.data['password']
             u_pw_c = f.data['password_conf']
 
             if not f_m.is_existing_user(User.objects.all(), u_n):
                 if u_pw == u_pw_c:
-                    new_user = User.objects.create_user(username=u_n, first_name=u_fn, last_name=u_ln, email=u_em,
-                                                        password=u_pw)
+                    new_user = User.objects.create_user(username=u_n, email=u_em, password=u_pw)
                     new_user.save()
                     return HttpResponseRedirect('/login/')
                 else:
