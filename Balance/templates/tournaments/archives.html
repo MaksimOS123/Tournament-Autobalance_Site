@@ -17,27 +17,42 @@
       </div>
   </nav>
 </div>
-<div class="content">
-    <div class="container" style="width: 100%; background-color: inherit; position: relative;">
-        <div class="row">
-            {% for item in tournaments %}
-            <div class="col-4">
-                <div class="create trans" onClick="window.location='{% url 'console_tournament' item.ref %}'">
-                    {% load static %}
-                    <img src="{% static mode_img %}">
-                    <div class="gradient">
-                        <p style="font-size: 30px; line-height: 0px; position: relative; top: -10px;">{{ item.title }}</p>
-                    </div>
-                    {% if item.public %}
-                        <hr>
-                        <p style="color: #808080; font-size: 15px; line-height: 0px;">Published. Members count: {{ item.members_count }}</p>
+<div class="content" style="padding-right: 50px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container shadow" style="position: relative; padding: 0px;">
+                <div class="container-header" style="width: 100%; position: relative; border-radius: 10px 10px 0 0;">
+                    Archived Tournaments
+                </div>
+                <div class="container-content" style="border-radius: 0 0 10px 10px;">
+                    {% if mode_main == "main.css" %}
+                    <table class="table text-center">
                     {% else %}
-                        <hr>
-                        <p style="color: #808080; font-size: 15px; line-height: 0px;">Draft</p>
+                    <table class="table text-center" style="color: #fff;">
                     {% endif %}
+                        <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Free Agents</th>
+                            <th scope="col">Console</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in tournaments %}
+                            <tr>
+                                <th scope="row">{{ item.title }}</th>
+                                <td>{{ item.date }}</td>
+                                <td>>{{ item.time }}</td>
+                                <td>{{ item.members_count }}</td>
+                                <td><a href="{% url 'console_tournament' item.ref %}" class="btn btn-primary purple" style="width: 100px; font-size: 10px;">Console</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 </div>

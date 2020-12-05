@@ -80,6 +80,17 @@ class UserProfile(models.Model):
     discord = models.TextField(default='')
     discord_server_tournament = models.URLField(default='')
 
+    game_nickname = models.CharField(default='', max_length=100)
+    player_tag = models.CharField(default='', max_length=50)
+    wins = models.IntegerField(default=0)
+    loses = models.IntegerField(default=0)
+    kills = models.IntegerField(default=0)
+    deaths = models.IntegerField(default=0)
+    damage = models.IntegerField(default=0)
+    repair = models.IntegerField(default=0)
+    t_bombs = models.IntegerField(default=0)
+    d_bombs = models.IntegerField(default=0)
+
     dark_mode = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='images/', blank=True, default='no_photo.jpg')
 

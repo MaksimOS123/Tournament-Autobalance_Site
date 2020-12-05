@@ -104,7 +104,11 @@ function POST(i){
                                     <div class="col-12">
                                         <div class="form-row">
                                             <div class="form-group col-md-12" style="margin-bottom: 0px;">
+                                                {% if mode_main != 'main.css' %}
                                                 <hr style="margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid rgb(255 255 255 / 42%); width: 100%;"></hr>
+                                                {% else %}
+                                                <hr style="margin-top: 1rem;margin-bottom: 1rem;border: 0;border-top: 1px solid rgb(68 68 68 / 68%);width: 100%;"></hr>
+                                                {% endif %}
                                                 <div class="info_bg text-center">
                                                     <h5>Background</h5>
                                                 </div>
@@ -147,7 +151,7 @@ function POST(i){
                 </div>
                 <div class="card-header" id="headingTwo">
                     <h5 class="mb-0">
-                        <a class="btn btn-link disabled" type="button" href="{% url 'profile_statistics' %}" style="width: 100%" aria-disabled="true">
+                        <a class="btn btn-link" type="button" href="{% url 'profile_statistics' %}" style="width: 100%">
                             Statistics
                         </a>
                     </h5>

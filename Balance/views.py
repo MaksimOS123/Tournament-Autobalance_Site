@@ -186,8 +186,66 @@ def profile_statistics(request):
     context['title'] = 'Edit profile'
 
     user = User.objects.filter(username=request.user)[0]
+    this_user = UserProfile.objects.get(user=request.user)
 
-    return HttpResponseRedirect('/profile/')
+    if request.method == 'POST':
+        if request.POST.get('game_nick', False):
+            this_user.game_nickname = request.POST.get('game_nick')
+            this_user.save()
+
+        if request.POST.get('tag', False):
+            this_user.player_tag = request.POST.get('tag')
+            this_user.save()
+
+        if request.POST.get('wins', False):
+            this_user.wins = request.POST.get('wins')
+            this_user.save()
+
+        if request.POST.get('loses', False):
+            this_user.loses = request.POST.get('loses')
+            this_user.save()
+
+        if request.POST.get('damage', False):
+            this_user.damage = request.POST.get('damage')
+            this_user.save()
+
+        if request.POST.get('repair', False):
+            this_user.repair = request.POST.get('repair')
+            this_user.save()
+
+        if request.POST.get('kills', False):
+            this_user.kills = request.POST.get('kills')
+            this_user.save()
+
+        if request.POST.get('deaths', False):
+            this_user.deaths = request.POST.get('deaths')
+            this_user.save()
+
+        if request.POST.get('t_bombs', False):
+            this_user.t_bombs = request.POST.get('t_bombs')
+            this_user.save()
+
+        if request.POST.get('d_bombs', False):
+            this_user.d_bombs = request.POST.get('d_bombs')
+            this_user.save()
+
+        return HttpResponseRedirect(request.path)
+
+    context['game_nick'] = this_user.game_nickname
+    context['tag'] = this_user.player_tag
+    context['wins'] = this_user.wins
+    context['loses'] = this_user.loses
+    context['damage'] = this_user.damage
+    context['repair'] = this_user.repair
+    context['kills'] = this_user.kills
+    context['deaths'] = this_user.deaths
+    context['t_bombs'] = this_user.t_bombs
+    context['d_bombs'] = this_user.d_bombs
+
+    if mobile:
+        return render(request, 'mobile/profile/profile_statistics.html', context)
+    else:
+        return render(request, 'profile/profile_statistics.html', context)
 
 
 @login_required()
