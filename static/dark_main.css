@@ -199,6 +199,42 @@ body {
   color: #fff !important;
 }
 
+.info_carousel {
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+}
+
+.more_tournaments {
+	width: 100%;
+	margin-top: 30px;
+	text-align: center;
+}
+
+#carouselExampleCaptions {
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 7px 10px 1px #00000061;
+}
+
+.NF404_tournaments {
+	height: 200px;
+	width: 100%;
+	text-align: center;
+	line-height: 50px;
+	padding: 60px 0 0 0;
+}
+
+.NF404_tournaments p {
+	font-size: 20px;
+	color: #757575
+}
+
+.NF404_tournaments i {
+	font-size: 50px;
+	color: #757575
+}
+
 ::-webkit-scrollbar { width: 5px; }
 
 ::-webkit-scrollbar-track {

@@ -21,11 +21,15 @@
                 </div>
                 <hr>
                 <div class="join">
+                    {% if request.user.is_authenticated %}
                     <form method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="{{join}}" id="{{ join }}" value="{{join}}">
                         <button type="submit" class="btn btn-success purple {{disabled}}" {{disabled}}>{{joined}}</button>
                     </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-success purple" style="width: 90%;">Join</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

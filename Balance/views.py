@@ -29,13 +29,18 @@ def index_page(request):
     context['title'] = "Main page"
 
     tournaments = []
+    first_tournament = []
 
     for i in range(1, TournamentModel.objects.all().last().id+1):
         tour = TournamentModel.objects.get(id=i)
         if tour.public:
-            tournaments.append(tour)
+            if len(first_tournament) == 0:
+                first_tournament.append(tour)
+            else:
+                tournaments.append(tour)
 
     context['tournaments'] = tournaments
+    context['first_tournament'] = first_tournament
 
     if mobile:
         return render(request, 'mobile/index.html', context)
@@ -351,17 +356,18 @@ def tournament(request, ref):
 
             return HttpResponseRedirect('/tournament/{}/'.format(ref))
 
-    if ref in str(UserProfile.objects.get(user=request.user).tournaments.all()):
-        if tr.creator == request.user:
+    if request.user.is_authenticated:
+        if ref in str(UserProfile.objects.get(user=request.user).tournaments.all()):
+            if tr.creator == request.user:
+                context['joined'] = "Join"
+                context['join'] = "join"
+                context['disabled'] = "disabled"
+            else:
+                context['joined'] = "Exit"
+                context['join'] = "exit"
+        else:
             context['joined'] = "Join"
             context['join'] = "join"
-            context['disabled'] = "disabled"
-        else:
-            context['joined'] = "Exit"
-            context['join'] = "exit"
-    else:
-        context['joined'] = "Join"
-        context['join'] = "join"
 
     if mobile:
         return render(request, 'mobile/tournaments/tournament.html', context)
