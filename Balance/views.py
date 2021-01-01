@@ -336,6 +336,33 @@ def tournament(request, ref):
     context['discord_server'] = tr.discord_server
     context['creator'] = tr.creator
 
+    if request.method == 'POST':
+        if request.POST.get('join', False):
+            tr.userprofile_set.add(UserProfile.objects.get(user=request.user))
+            tr.members_count = str(int(tr.members_count)+1)
+            tr.save()
+
+            return HttpResponseRedirect('/tournament/{}/'.format(ref))
+
+        if request.POST.get('exit'):
+            tr.userprofile_set.remove(UserProfile.objects.get(user=request.user))
+            tr.members_count = str(int(tr.members_count)-1)
+            tr.save()
+
+            return HttpResponseRedirect('/tournament/{}/'.format(ref))
+
+    if ref in str(UserProfile.objects.get(user=request.user).tournaments.all()):
+        if tr.creator == request.user:
+            context['joined'] = "Join"
+            context['join'] = "join"
+            context['disabled'] = "disabled"
+        else:
+            context['joined'] = "Exit"
+            context['join'] = "exit"
+    else:
+        context['joined'] = "Join"
+        context['join'] = "join"
+
     if mobile:
         return render(request, 'mobile/tournaments/tournament.html', context)
     else:
@@ -354,7 +381,7 @@ def my_tournaments(request):
     list_of_tournaments = []
     for i in tournaments:
         t = TournamentModel.objects.get(ref=i)
-        if not t.archive:
+        if not t.archive and t.creator == request.user:
             list_of_tournaments.append(i)
 
     if len(list_of_tournaments) < len(tournaments):

@@ -21,7 +21,11 @@
                 </div>
                 <hr>
                 <div class="join">
-                    <button type="submit" class="btn btn-success purple">Join</button>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="{{join}}" id="{{ join }}" value="{{join}}">
+                        <button type="submit" class="btn btn-success purple {{disabled}}" {{disabled}}>{{joined}}</button>
+                    </form>
                 </div>
             </div>
         </div>

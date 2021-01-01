@@ -222,6 +222,10 @@ body {
 	border-color: #bd1259 !important;
 }
 
+.disabled {
+	pointer-events: none;
+}
+
 .blue {
 	background-color: #6a83ff !important;
 	border-color: #6a83ff !important;
